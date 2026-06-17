@@ -1,6 +1,7 @@
 import { LogOut, PlugZap, ShieldCheck, Terminal } from 'lucide-react'
 
 import { useArcAppKit } from '../hooks/useArcAppKit'
+import { socialLoginReady } from '../lib/env'
 import { QuantumLogo } from './QuantumLogo'
 import { Button } from './ui/Button'
 import { CopyAddress } from './ui/CopyAddress'
@@ -35,7 +36,7 @@ export function Header() {
         : 'Connect'
 
   return (
-    <header className="sticky top-0 z-30 border-b-2 border-quantum-black bg-white/92 px-3 py-2 backdrop-blur md:px-4">
+    <header className="sticky top-0 z-30 border-b-2 border-quantum-black bg-quantum-paper/80 px-3 py-2 backdrop-blur md:px-4">
       <div className="mx-auto flex max-w-[1120px] flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
           <QuantumLogo size="sm" className="h-10 w-10" />
@@ -50,22 +51,30 @@ export function Header() {
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <div className="border-2 border-quantum-black bg-quantum-yellow px-2 py-1.5 font-mono text-[10px] uppercase text-quantum-ink shadow-[2px_2px_0_#111]">
+          <div className="border-2 border-quantum-black bg-quantum-yellow px-2 py-1.5 font-mono text-[10px] uppercase text-[#07070c] shadow-[2px_2px_0_#6e56ff]">
             CHAIN <b className="text-quantum-cyan">{chainId || 'OFF'}</b>
           </div>
-          <div className="border-2 border-quantum-black bg-white px-2 py-1.5 font-mono text-[10px] uppercase text-quantum-ink shadow-[2px_2px_0_#111]">
+          <div className="border-2 border-quantum-black bg-quantum-panel px-2 py-1.5 font-mono text-[10px] uppercase text-quantum-ink shadow-[2px_2px_0_#6e56ff]">
             AUTH{' '}
             <b className={privyAuthenticated ? 'text-quantum-green' : 'text-quantum-red'}>
               {privyAuthenticated ? walletLabel || 'PRIVY' : 'OFF'}
             </b>
           </div>
           {lastError ? (
-            <div className="max-w-[220px] truncate border-2 border-quantum-black bg-quantum-red px-2 py-1.5 font-mono text-[10px] uppercase text-quantum-ink shadow-[2px_2px_0_#111]">
+            <div className="max-w-[220px] truncate border-2 border-quantum-black bg-quantum-red px-2 py-1.5 font-mono text-[10px] uppercase text-[#07070c] shadow-[2px_2px_0_#6e56ff]">
               {lastError}
             </div>
           ) : null}
+          {!socialLoginReady ? (
+            <div
+              className="max-w-[240px] border-2 border-quantum-black bg-quantum-orange px-2 py-1.5 font-mono text-[10px] uppercase text-[#07070c] shadow-[2px_2px_0_#6e56ff]"
+              title="Set VITE_PRIVY_APP_ID di .env lalu restart untuk mengaktifkan login Google/email."
+            >
+              GOOGLE LOGIN OFF · SET PRIVY APP ID
+            </div>
+          ) : null}
           {account && isSignedIn ? (
-            <div className="inline-flex min-h-10 min-w-32 items-center justify-center gap-2 border-2 border-quantum-black bg-quantum-green px-3 py-2 font-display text-base uppercase leading-none text-quantum-ink shadow-[2px_2px_0_#111] md:text-lg">
+            <div className="inline-flex min-h-10 min-w-32 items-center justify-center gap-2 border-2 border-quantum-black bg-quantum-green px-3 py-2 font-display text-base uppercase leading-none text-[#07070c] shadow-[2px_2px_0_#6e56ff] md:text-lg">
               <ShieldCheck className="h-4 w-4" />
               <span>{label}</span>
               <CopyAddress

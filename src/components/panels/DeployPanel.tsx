@@ -155,7 +155,7 @@ export function DeployPanel() {
       </div>
 
       {contractAddress ? (
-        <div className="mt-4 border-4 border-quantum-black bg-white p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#111]">
+        <div className="mt-4 border-4 border-quantum-black bg-quantum-panel p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#6e56ff]">
           <div className="flex items-center justify-between gap-2 text-quantum-black/55">
             <span>Contract Address</span>
             <CopyAddress address={contractAddress} label="Copy CA" className="h-6 px-2 shadow-none" />
@@ -172,12 +172,12 @@ export function DeployPanel() {
       ) : null}
 
       {txHash ? (
-        <div className="mt-4 break-all border-4 border-quantum-black bg-quantum-green p-3 font-mono text-xs text-quantum-black shadow-[5px_5px_0_#111]">
+        <div className="mt-4 break-all border-4 border-quantum-black bg-quantum-green p-3 font-mono text-xs text-quantum-black shadow-[5px_5px_0_#6e56ff]">
           TX {txHash}
         </div>
       ) : null}
       {error ? (
-        <div className="mt-4 break-words border-4 border-quantum-black bg-quantum-red p-3 font-mono text-xs text-quantum-black shadow-[5px_5px_0_#111]">
+        <div className="mt-4 break-words border-4 border-quantum-black bg-quantum-red p-3 font-mono text-xs text-quantum-black shadow-[5px_5px_0_#6e56ff]">
           {error}
         </div>
       ) : null}

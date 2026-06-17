@@ -23,13 +23,13 @@ export function IntroGate({ onEnter }: IntroGateProps) {
         <section className="space-y-6">
           <QuantumLogo size="lg" className="h-36 w-36" />
           <div>
-            <p className="w-fit border-4 border-quantum-black bg-quantum-green px-3 py-2 font-mono text-xs uppercase text-quantum-ink shadow-[5px_5px_0_#111]">
+            <p className="w-fit border-4 border-quantum-black bg-quantum-green px-3 py-2 font-mono text-xs uppercase text-[#07070c] shadow-[5px_5px_0_#6e56ff]">
               Arc Testnet stablecoin console
             </p>
-            <h1 className="mt-5 max-w-3xl font-display text-6xl leading-[0.86] text-quantum-ink [text-shadow:5px_5px_0_#00E5FF,10px_10px_0_#FF4D8D] md:text-8xl">
+            <h1 className="mt-5 max-w-3xl font-display text-6xl leading-[0.86] text-quantum-ink [text-shadow:4px_4px_0_#FF8C00,8px_8px_0_#7C3AED] md:text-8xl">
               ARC QUANTUM LAB
             </h1>
-            <p className="mt-8 max-w-2xl border-4 border-quantum-black bg-white p-5 font-mono text-sm uppercase leading-6 text-quantum-ink shadow-[7px_7px_0_#111]">
+            <p className="mt-8 max-w-2xl border-4 border-quantum-black bg-quantum-panel p-5 font-mono text-sm uppercase leading-6 text-quantum-ink shadow-[7px_7px_0_#6e56ff]">
               Swap, send, deploy random tokens, and faucet access. One EVM wallet and one
               clear signer path for every action.
             </p>
@@ -39,13 +39,13 @@ export function IntroGate({ onEnter }: IntroGateProps) {
               Enter Lab
               <ArrowRight className="h-5 w-5" />
             </Button>
-            <div className="border-4 border-quantum-black bg-quantum-yellow px-4 py-3 font-mono text-xs uppercase text-quantum-ink shadow-[5px_5px_0_#111]">
+            <div className="border-4 border-quantum-black bg-quantum-yellow px-4 py-3 font-mono text-xs uppercase text-[#07070c] shadow-[5px_5px_0_#6e56ff]">
               Circle AppKit live
             </div>
           </div>
         </section>
 
-        <section className="intro-scan border-4 border-quantum-black p-4 shadow-[9px_9px_0_#111] md:p-5">
+        <section className="intro-scan brutal-3d border-4 border-quantum-black p-4 md:p-5">
           <div className="mb-4 border-b-4 border-quantum-black pb-3 font-display text-4xl">
             LIVE MODULES
           </div>
@@ -55,7 +55,7 @@ export function IntroGate({ onEnter }: IntroGateProps) {
               return (
                 <div
                   key={feature.label}
-                  className="border-4 border-quantum-black bg-white p-4 shadow-[5px_5px_0_#111]"
+                  className="border-4 border-quantum-black bg-quantum-panel p-4 shadow-[5px_5px_0_#6e56ff]"
                 >
                   <Icon className={`mb-3 h-7 w-7 ${feature.color}`} />
                   <div className="font-display text-4xl leading-none">{feature.label}</div>

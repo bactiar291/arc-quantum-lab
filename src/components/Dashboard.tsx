@@ -33,7 +33,7 @@ function BalanceRow({
   value: string
 }) {
   return (
-    <div className="border-2 border-quantum-black bg-white p-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#111]">
+    <div className="border-2 border-quantum-black bg-quantum-panel p-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#6e56ff]">
       <div className="mb-1 flex items-center justify-between gap-3">
         <span className="marker-blue text-quantum-black">{chain}</span>
         <span className="text-quantum-yellow">{symbol}</span>
@@ -187,7 +187,7 @@ export function Dashboard() {
 
       <div className="mt-3 space-y-3">
         <div className="grid grid-cols-[1fr_auto] gap-2">
-          <div className="min-w-0 border-2 border-quantum-black bg-white px-3 py-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#111]">
+          <div className="min-w-0 border-2 border-quantum-black bg-quantum-panel px-3 py-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#6e56ff]">
             <div className="flex items-center gap-2 text-quantum-purple">
               <ArrowLeftRight className="h-3.5 w-3.5" />
               {privyEnabled ? 'Privy' : 'Wallet'}:{' '}
@@ -282,7 +282,7 @@ export function Dashboard() {
             txHistory.slice(0, 8).map((tx) => (
               <div
                 key={tx.id}
-                className="border-2 border-quantum-black bg-white p-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#111]"
+                className="border-2 border-quantum-black bg-quantum-panel p-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#6e56ff]"
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-quantum-black">{tx.summary}</span>
@@ -323,7 +323,7 @@ export function Dashboard() {
               </div>
             ))
           ) : (
-            <div className="border-2 border-quantum-black bg-white p-2 font-mono text-xs uppercase text-quantum-black/50 shadow-[2px_2px_0_#111]">
+            <div className="border-2 border-quantum-black bg-quantum-panel p-2 font-mono text-xs uppercase text-quantum-black/50 shadow-[2px_2px_0_#6e56ff]">
               No transaction yet.
             </div>
           )}

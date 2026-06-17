@@ -209,7 +209,7 @@ export function StableSendPanel() {
           ))}
         </div>
 
-        <div className="mini-swap-box bg-white font-mono text-xs uppercase">
+        <div className="mini-swap-box bg-quantum-panel font-mono text-xs uppercase">
           <div className="flex items-center justify-between gap-3">
             <span className="text-quantum-black/55">Wallet Balance</span>
             <span className="text-quantum-cyan">
@@ -234,7 +234,7 @@ export function StableSendPanel() {
               {[25, 50, 75, 100].map((percent) => (
                 <button
                   key={percent}
-                  className="border-4 border-quantum-black bg-quantum-paper px-2 py-1 font-mono text-[11px] uppercase shadow-[3px_3px_0_#111] disabled:opacity-40"
+                  className="border-4 border-quantum-black bg-quantum-panel px-2 py-1 font-mono text-[11px] uppercase shadow-[3px_3px_0_#6e56ff] disabled:opacity-40"
                   disabled={balanceValue === null || balanceValue <= 0n}
                   onClick={() => setPercentAmount(percent)}
                   type="button"
@@ -260,12 +260,12 @@ export function StableSendPanel() {
         </div>
 
         {invalidAmount && amount ? (
-          <div className="border-4 border-quantum-black bg-quantum-red p-3 font-mono text-xs uppercase text-quantum-black shadow-[5px_5px_0_#111]">
+          <div className="border-4 border-quantum-black bg-quantum-red p-3 font-mono text-xs uppercase text-quantum-black shadow-[5px_5px_0_#6e56ff]">
             Amount invalid or zero.
           </div>
         ) : null}
         {insufficient ? (
-          <div className="border-4 border-quantum-black bg-quantum-red p-3 font-mono text-xs uppercase text-quantum-black shadow-[5px_5px_0_#111]">
+          <div className="border-4 border-quantum-black bg-quantum-red p-3 font-mono text-xs uppercase text-quantum-black shadow-[5px_5px_0_#6e56ff]">
             Wallet balance insufficient.
           </div>
         ) : null}
@@ -285,12 +285,12 @@ export function StableSendPanel() {
         )}
 
         {hash ? (
-          <div className="break-all border-4 border-quantum-black bg-quantum-green p-3 font-mono text-xs text-quantum-black shadow-[5px_5px_0_#111]">
+          <div className="break-all border-4 border-quantum-black bg-quantum-green p-3 font-mono text-xs text-quantum-black shadow-[5px_5px_0_#6e56ff]">
             TX {hash}
           </div>
         ) : null}
         {error ? (
-          <div className="break-words border-4 border-quantum-black bg-quantum-red p-3 font-mono text-xs text-quantum-black shadow-[5px_5px_0_#111]">
+          <div className="break-words border-4 border-quantum-black bg-quantum-red p-3 font-mono text-xs text-quantum-black shadow-[5px_5px_0_#6e56ff]">
             {error}
           </div>
         ) : null}

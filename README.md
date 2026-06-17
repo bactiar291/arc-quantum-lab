@@ -12,9 +12,37 @@ npm run lint
 npm run build
 ```
 
+## Setup (PENTING — baca dulu)
+
+Aplikasi ini butuh 2 layanan eksternal. Tanpa ini, **login Google & swap tidak akan jalan**.
+
+### 1. Privy (untuk login Google / email / X / Discord)
+
+1. Daftar di https://dashboard.privy.io dan buat app baru.
+2. Salin **App ID** -> isi ke `VITE_PRIVY_APP_ID` di `.env`.
+3. Di dashboard Privy, aktifkan login method: **Google, Email, Wallet** (dan X/Discord kalau mau).
+4. Tambahkan **Allowed origin**: `http://localhost:5173` (dev) dan domain Vercel kamu (prod).
+5. Restart dev server setelah mengisi `.env`.
+
+> Kalau `VITE_PRIVY_APP_ID` kosong, seluruh social login dimatikan dan hanya
+> injected wallet (MetaMask/Rabby) yang bisa connect. Header akan menampilkan
+> badge oranye **"GOOGLE LOGIN OFF"** sebagai pengingat.
+
+### 2. Circle Kit Key (untuk swap & bridge)
+
+Swap/bridge memakai proxy server (`/api/circle/...`) yang **hanya jalan di Vercel**,
+bukan `npm run dev`. Set env server-only di Vercel:
+
+- `CIRCLE_KIT_KEY` = kit key dari Circle
+- `PRIVY_APP_ID` + `PRIVY_APP_SECRET` = untuk verifikasi token di proxy
+
+> Saat `npm run dev` lokal, tombol swap akan gagal di langkah quote karena
+> endpoint `/api` belum ada. Ini normal — test swap setelah deploy ke Vercel.
+
 ## Env
 
-Use public Arc RPC by default. Keep secret keys server-side only.
+Public RPC dipakai secara default. Simpan secret key hanya di server.
+Lihat `.env.example` untuk daftar lengkap. File `.env` sudah di-`.gitignore`.
 
 ```env
 VITE_ARC_RPC_URL=https://rpc.testnet.arc.network

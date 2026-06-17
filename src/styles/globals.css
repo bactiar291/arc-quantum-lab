@@ -1,20 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --paper: #f5f0e8;
-  --ink: #111111;
-  --panel: #ffffff;
-  --fog: #e8e0d5;
-  --yellow: #ffd60a;
-  --cyan: #00e5ff;
-  --green: #00c2a8;
-  --pink: #ff4d8d;
-  --orange: #ff9f1c;
-  --purple: #8a5cf6;
+  --paper: #07070c;
+  --bg-soft: #0e0c18;
+  --ink: #ececf1;
+  --panel: #12101f;
+  --fog: #1a1730;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-2: rgba(255, 255, 255, 0.18);
+  --yellow: #ffb020;
+  --cyan: #19e3c2;
+  --green: #19e3c2;
+  --pink: #ff7a1a;
+  --orange: #ff8c00;
+  --purple: #6e56ff;
+  --accent: #6e56ff;
+  --accent-2: #19e3c2;
+  --accent-yellow: var(--yellow);
+  --accent-cyan: var(--cyan);
+  --accent-green: var(--green);
+  --accent-pink: var(--pink);
+  --accent-orange: var(--orange);
+  --accent-purple: var(--purple);
   --ease: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -33,13 +44,13 @@ body {
   min-height: 100vh;
   color: var(--ink);
   background:
-    linear-gradient(118deg, rgba(255, 214, 10, 0.14), transparent 32%),
-    linear-gradient(284deg, rgba(0, 194, 168, 0.12), transparent 40%),
-    linear-gradient(32deg, rgba(255, 77, 141, 0.1), transparent 38%),
+    radial-gradient(circle at 16% 12%, rgba(110, 86, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 84% 18%, rgba(25, 227, 194, 0.1), transparent 32%),
+    radial-gradient(circle at 70% 88%, rgba(110, 86, 255, 0.12), transparent 36%),
     var(--paper);
-  background-size: 170% 170%;
-  animation: mesh-drift 16s var(--ease) infinite alternate;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  background-attachment: fixed;
+  font-family: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -55,7 +66,7 @@ select {
 }
 
 ::selection {
-  background: var(--pink);
+  background: var(--orange);
   color: var(--ink);
 }
 
@@ -70,8 +81,8 @@ select {
   inset: 0;
   z-index: 0;
   background-image:
-    linear-gradient(rgba(17, 17, 17, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 17, 17, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: linear-gradient(to bottom, #000 0%, transparent 88%);
 }
@@ -92,20 +103,26 @@ select {
   background:
     repeating-linear-gradient(
       116deg,
-      transparent 0 56px,
-      rgba(255, 77, 141, 0.055) 56px 59px,
-      transparent 60px 122px
+      transparent 0 48px,
+      rgba(255, 140, 0, 0.09) 48px 52px,
+      transparent 52px 104px
     ),
-    radial-gradient(circle at 18% 18%, rgba(0, 229, 255, 0.18), transparent 24%),
-    radial-gradient(circle at 88% 12%, rgba(255, 214, 10, 0.15), transparent 23%),
-    radial-gradient(circle at 72% 86%, rgba(0, 194, 168, 0.14), transparent 26%);
+    repeating-linear-gradient(
+      46deg,
+      transparent 0 60px,
+      rgba(124, 58, 237, 0.07) 60px 63px,
+      transparent 63px 126px
+    ),
+    radial-gradient(circle at 18% 18%, rgba(168, 85, 247, 0.2), transparent 24%),
+    radial-gradient(circle at 88% 12%, rgba(255, 140, 0, 0.17), transparent 23%),
+    radial-gradient(circle at 72% 86%, rgba(124, 58, 237, 0.16), transparent 26%);
   animation: band-shift 18s var(--ease) infinite alternate;
 }
 
 .panel {
   isolation: isolate;
-  border-width: 3px;
-  border-color: var(--ink);
+  border-width: 1px;
+  border-color: var(--line-2);
   color: var(--ink);
 }
 
@@ -115,20 +132,46 @@ select {
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.28;
+  opacity: 0.5;
   background-image:
-    linear-gradient(90deg, rgba(17, 17, 17, 0.08) 1px, transparent 1px),
-    linear-gradient(rgba(17, 17, 17, 0.08) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
 .hero-panel {
-  background: #ffffff;
+  background: var(--panel);
+}
+
+/* Neo-brutalism 3D: layered offset shadow (teal + purple) with tilt on hover */
+.brutal-3d {
+  border: 1px solid var(--line-2);
+  box-shadow:
+    3px 3px 0 var(--accent-2),
+    7px 7px 0 var(--accent),
+    11px 11px 28px rgba(0, 0, 0, 0.55);
+  transition:
+    transform 260ms var(--ease),
+    box-shadow 260ms var(--ease);
+}
+
+.brutal-3d:hover {
+  transform: translate(-3px, -3px);
+  box-shadow:
+    5px 5px 0 var(--accent-2),
+    11px 11px 0 var(--accent),
+    18px 18px 36px rgba(0, 0, 0, 0.6);
+}
+
+.text-3d {
+  text-shadow:
+    3px 3px 0 var(--accent-2),
+    6px 6px 0 var(--accent);
 }
 
 .brutal-button {
-  border: 3px solid var(--ink);
-  box-shadow: 3px 3px 0 var(--ink);
+  border: 1px solid var(--line-2);
+  box-shadow: 3px 3px 0 var(--accent);
   transition:
     transform 150ms ease,
     box-shadow 150ms ease,
@@ -137,39 +180,41 @@ select {
 
 .brutal-button:hover:not(:disabled) {
   transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0 var(--ink);
-  filter: saturate(1.04);
+  box-shadow: 2px 2px 0 var(--accent);
+  filter: saturate(1.08) brightness(1.05);
 }
 
 .brutal-button:active:not(:disabled) {
   transform: translate(3px, 3px);
-  box-shadow: 0 0 0 var(--ink);
+  box-shadow: 0 0 0 var(--accent);
 }
 
 .input-quantum {
   min-height: 44px;
-  border: 3px solid var(--ink);
-  background: #ffffff;
+  border: 1px solid var(--line-2);
+  background: var(--bg-soft);
   color: var(--ink);
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: 3px 3px 0 var(--accent);
   outline: none;
   transition:
     background-color 150ms ease,
-    box-shadow 150ms ease;
+    box-shadow 150ms ease,
+    border-color 150ms ease;
 }
 
 .input-quantum:focus {
-  background: #fff6cc;
-  box-shadow: 3px 3px 0 var(--pink);
+  background: var(--fog);
+  border-color: var(--accent-2);
+  box-shadow: 3px 3px 0 var(--accent-2);
 }
 
 .input-quantum::placeholder {
-  color: rgba(17, 17, 17, 0.48);
+  color: rgba(236, 236, 241, 0.4);
 }
 
 .input-quantum:disabled {
-  color: rgba(17, 17, 17, 0.38);
-  background: #efefef;
+  color: rgba(236, 236, 241, 0.35);
+  background: #0a0a12;
 }
 
 .compact-action-panel {

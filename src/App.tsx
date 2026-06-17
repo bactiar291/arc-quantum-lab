@@ -60,7 +60,7 @@ function Shell() {
 
       <main className="mx-auto grid w-full max-w-[1120px] grid-cols-1 gap-4 px-3 pb-20 pt-3 md:px-4 lg:grid-cols-[minmax(420px,520px)_minmax(300px,1fr)]">
         <section className="space-y-3">
-          <Panel className="animate-reveal hero-panel p-3" shadow="cyan">
+          <Panel className="animate-reveal hero-panel brutal-3d p-3" shadow="cyan">
             <div className="mb-3 flex items-center justify-between gap-3 border-b-2 border-quantum-black/15 pb-2">
               <div>
                 <div className="flex items-center gap-2 font-display text-2xl leading-none md:text-3xl">
@@ -68,7 +68,7 @@ function Shell() {
                   {active.label}
                 </div>
               </div>
-              <div className="border-2 border-quantum-black bg-quantum-green px-2 py-1 font-mono text-[10px] uppercase text-quantum-black shadow-[2px_2px_0_#111]">
+              <div className="border-2 border-quantum-black bg-quantum-green px-2 py-1 font-mono text-[10px] uppercase text-quantum-black shadow-[2px_2px_0_#6e56ff]">
                 AppKit / Arc
               </div>
             </div>

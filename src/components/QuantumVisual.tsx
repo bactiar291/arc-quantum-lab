@@ -24,7 +24,7 @@ export function QuantumVisual() {
           </div>
         </div>
 
-        <div className="absolute bottom-4 right-4 border-4 border-quantum-black bg-white px-3 py-2 font-mono text-xs uppercase text-quantum-ink shadow-[5px_5px_0_#111]">
+        <div className="absolute bottom-4 right-4 border-4 border-quantum-black bg-quantum-panel px-3 py-2 font-mono text-xs uppercase text-quantum-ink shadow-[5px_5px_0_#6e56ff]">
           AppKit / Public RPC
         </div>
       </div>

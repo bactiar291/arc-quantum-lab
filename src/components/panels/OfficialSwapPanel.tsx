@@ -1,4 +1,4 @@
-import { ArrowDown, ChevronDown, Settings, Shuffle } from 'lucide-react'
+import { ArrowDown, RefreshCw, Shuffle } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
@@ -157,16 +157,18 @@ export function OfficialSwapPanel() {
             Swap
           </div>
           <button
-            className="grid h-8 w-8 place-items-center border-2 border-quantum-black/20 text-quantum-black/50 hover:border-quantum-black hover:text-quantum-black"
+            className="grid h-8 w-8 place-items-center border-2 border-quantum-black/20 text-quantum-black/50 transition-colors hover:border-quantum-black hover:text-quantum-black disabled:opacity-40"
             onClick={() => void runQuote()}
+            disabled={quoteBusy}
             type="button"
-            aria-label="Refresh quote settings"
+            aria-label="Refresh quote"
+            title="Refresh quote"
           >
-            <Settings className="h-4 w-4" />
+            <RefreshCw className={`h-4 w-4 ${quoteBusy ? 'animate-spin' : ''}`} />
           </button>
         </div>
 
-        <div className="border-2 border-quantum-black/10 bg-quantum-paper p-3 hover:border-quantum-black/20">
+        <div className="border-2 border-quantum-black/10 bg-quantum-panel p-3 hover:border-quantum-black/20">
           <div className="mb-2 font-mono text-[11px] uppercase text-quantum-black/50">
             You pay
           </div>
@@ -183,7 +185,6 @@ export function OfficialSwapPanel() {
             />
             <div className="flex items-center gap-2 border-2 border-quantum-black bg-quantum-yellow px-3 py-1.5">
               <span className="font-display text-base">{tokenIn.symbol}</span>
-              <ChevronDown className="h-3 w-3" />
             </div>
           </div>
           <div className="mt-2 flex justify-between font-mono text-xs text-quantum-black/40">
@@ -211,14 +212,14 @@ export function OfficialSwapPanel() {
           <button
             onClick={flip}
             aria-label="Flip swap direction"
-            className="grid h-9 w-9 place-items-center border-2 border-quantum-black bg-white shadow-[3px_3px_0_#111] transition-transform active:translate-x-px active:translate-y-px"
+            className="grid h-9 w-9 place-items-center border-2 border-quantum-black bg-quantum-panel shadow-[3px_3px_0_#6e56ff] transition-transform active:translate-x-px active:translate-y-px"
             type="button"
           >
             <ArrowDown className="h-4 w-4" />
           </button>
         </div>
 
-        <div className="border-2 border-quantum-black/10 bg-quantum-paper p-3">
+        <div className="border-2 border-quantum-black/10 bg-quantum-panel p-3">
           <div className="mb-2 font-mono text-[11px] uppercase text-quantum-black/50">
             You receive
           </div>
@@ -232,7 +233,6 @@ export function OfficialSwapPanel() {
             </div>
             <div className="flex items-center gap-2 border-2 border-quantum-black bg-quantum-green px-3 py-1.5">
               <span className="font-display text-base">{tokenOut.symbol}</span>
-              <ChevronDown className="h-3 w-3" />
             </div>
           </div>
           <div className="mt-2 font-mono text-xs text-quantum-black/40">
@@ -253,7 +253,7 @@ export function OfficialSwapPanel() {
                 onClick={() => setSlippageBps(bps)}
                 className={`rounded border px-2 py-0.5 font-mono text-[11px] ${
                   slippageBps === bps
-                    ? 'border-quantum-black bg-quantum-black text-white'
+                    ? 'border-quantum-black bg-[#0a0a14] text-white'
                     : 'border-quantum-black/20 text-quantum-black/50 hover:border-quantum-black/50'
                 }`}
                 type="button"

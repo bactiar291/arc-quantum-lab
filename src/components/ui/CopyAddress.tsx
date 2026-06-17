@@ -51,7 +51,7 @@ export function CopyAddress({
       title={address ? `Copy ${address}` : 'No address'}
       aria-label={address ? `Copy address ${address}` : 'No address to copy'}
       className={clsx(
-        'inline-flex h-7 items-center justify-center gap-1 border-2 border-quantum-black bg-white px-2 font-mono text-[10px] uppercase text-quantum-black shadow-[2px_2px_0_#111] transition-transform active:translate-x-px active:translate-y-px disabled:cursor-not-allowed disabled:opacity-45',
+        'inline-flex h-7 items-center justify-center gap-1 border-2 border-quantum-black bg-quantum-panel px-2 font-mono text-[10px] uppercase text-quantum-black shadow-[2px_2px_0_#6e56ff] transition-transform active:translate-x-px active:translate-y-px disabled:cursor-not-allowed disabled:opacity-45',
         iconOnly && 'w-7 px-0',
         copied && 'bg-quantum-green',
         className

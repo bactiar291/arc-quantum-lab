@@ -31,7 +31,7 @@ const modeConfig: Record<ReactorTab, ModeConfig> = {
     title: 'SWAP REACTOR',
     label: 'USDC / EURC ROTOR',
     icon: Shuffle,
-    colors: ['#00e5ff', '#ffd60a', '#ff4d8d'],
+    colors: ['#6e56ff', '#19e3c2', '#ff8c00'],
     pulse: 'bg-quantum-cyan',
     telemetry: ['PAIR', 'QUOTE', 'SLIP', 'ROUTE']
   },
@@ -39,7 +39,7 @@ const modeConfig: Record<ReactorTab, ModeConfig> = {
     title: 'SEND ARRAY',
     label: 'TOKEN VECTOR',
     icon: Send,
-    colors: ['#00c2a8', '#00e5ff', '#ff9f1c'],
+    colors: ['#19e3c2', '#6e56ff', '#ff8c00'],
     pulse: 'bg-quantum-green',
     telemetry: ['TO', 'VALUE', 'GAS', 'HASH']
   },
@@ -47,7 +47,7 @@ const modeConfig: Record<ReactorTab, ModeConfig> = {
     title: 'FAUCET STREAM',
     label: 'TESTNET FUEL',
     icon: Waves,
-    colors: ['#ffd60a', '#00c2a8', '#00e5ff'],
+    colors: ['#ff8c00', '#19e3c2', '#6e56ff'],
     pulse: 'bg-quantum-yellow',
     telemetry: ['CLAIM', 'ARC', 'SEPOLIA', 'SYNC']
   },
@@ -55,7 +55,7 @@ const modeConfig: Record<ReactorTab, ModeConfig> = {
     title: 'DEPLOY FORGE',
     label: 'ERC20 BYTECODE PRESS',
     icon: Rocket,
-    colors: ['#ff4d8d', '#ff9f1c', '#8a5cf6'],
+    colors: ['#ff8c00', '#6e56ff', '#19e3c2'],
     pulse: 'bg-quantum-red',
     telemetry: ['NAME', 'SYMBOL', 'SUPPLY', 'CA']
   }
@@ -284,15 +284,15 @@ export function ActionReactor({ activeTab }: { activeTab: ReactorTab }) {
   )
 
   return (
-    <Panel className="animate-reveal overflow-hidden bg-quantum-black p-0 text-white" shadow="cyan">
+    <Panel className="animate-reveal overflow-hidden bg-[#0a0a14] p-0 text-white" shadow="cyan">
       <div className="relative min-h-[300px]">
         <div className="reactor-bg" />
         <QuantumCanvas mode={activeTab} status={status} />
 
         <div className="relative z-10 grid min-h-[300px] grid-rows-[auto_1fr_auto]">
-          <div className="flex flex-col gap-2 border-b-4 border-white/80 bg-white/95 p-3 text-quantum-black md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-2 border-b-4 border-white/80 bg-quantum-panel/85 p-3 text-quantum-black md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-3">
-              <div className={`grid h-10 w-10 place-items-center border-4 border-quantum-black ${config.pulse} shadow-[5px_5px_0_#111]`}>
+              <div className={`grid h-10 w-10 place-items-center border-4 border-quantum-black ${config.pulse} shadow-[5px_5px_0_#6e56ff]`}>
                 <Icon className="h-6 w-6" />
               </div>
               <div>
@@ -318,22 +318,22 @@ export function ActionReactor({ activeTab }: { activeTab: ReactorTab }) {
           </div>
 
           <div className="relative">
-            <div className="absolute left-3 top-3 max-w-[72%] truncate border-4 border-white bg-quantum-black/85 px-3 py-2 font-mono text-[11px] uppercase text-white shadow-[5px_5px_0_#00e5ff]">
+            <div className="absolute left-3 top-3 max-w-[72%] truncate border-4 border-white bg-[#0a0a14]/85 px-3 py-2 font-mono text-[11px] uppercase text-white shadow-[5px_5px_0_#19e3c2]">
               <span className={status === 'pending' ? 'animate-pulse text-quantum-yellow' : 'text-quantum-cyan'}>
                 {statusTone(status)}
               </span>
               {latestTx ? <span className="ml-2 text-white/55">{latestTx.summary}</span> : null}
             </div>
-            <div className="absolute bottom-4 right-4 hidden max-w-[360px] border-4 border-white bg-white/95 p-3 font-mono text-[11px] uppercase text-quantum-black shadow-[5px_5px_0_#ff4d8d] md:block">
+            <div className="absolute bottom-4 right-4 hidden max-w-[360px] border-4 border-white bg-quantum-panel/85 p-3 font-mono text-[11px] uppercase text-quantum-black shadow-[5px_5px_0_#19e3c2] md:block">
               {latestTx?.hash ? latestTx.hash : 'NO ACTIVE HASH'}
             </div>
           </div>
 
-          <div className="grid gap-2 border-t-4 border-white/80 bg-white/95 p-3 text-quantum-black md:grid-cols-4">
+          <div className="grid gap-2 border-t-4 border-white/80 bg-quantum-panel/85 p-3 text-quantum-black md:grid-cols-4">
             {config.telemetry.map((item, index) => (
               <div
                 key={item}
-                className="relative overflow-hidden border-4 border-quantum-black bg-quantum-paper px-3 py-3 font-mono text-[11px] uppercase shadow-[5px_5px_0_#111]"
+                className="relative overflow-hidden border-4 border-quantum-black bg-quantum-panel px-3 py-3 font-mono text-[11px] uppercase shadow-[5px_5px_0_#6e56ff]"
               >
                 <div className="signal-stream" style={{ animationDelay: `${index * 160}ms` }} />
                 <div className="relative z-10 flex items-center justify-between gap-2">
@@ -355,13 +355,13 @@ export function ProtocolMatrix({ activeTab }: { activeTab: ReactorTab }) {
   const latest = txHistory[0]
 
   return (
-    <Panel className="animate-reveal bg-white" shadow="red">
+    <Panel className="animate-reveal bg-quantum-panel" shadow="red">
       <div className="mb-3 flex flex-col gap-2 border-b-4 border-quantum-black pb-3 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-2 font-display text-3xl leading-none">
           <Activity className="h-6 w-6 text-quantum-red" />
           PROTOCOL MATRIX
         </div>
-        <div className="border-4 border-quantum-black bg-quantum-cyan px-3 py-2 font-mono text-[11px] uppercase shadow-[5px_5px_0_#111]">
+        <div className="border-4 border-quantum-black bg-quantum-cyan px-3 py-2 font-mono text-[11px] uppercase shadow-[5px_5px_0_#6e56ff]">
           {latest ? latest.status : 'ready'} / {txHistory.length} tx
         </div>
       </div>
@@ -398,12 +398,12 @@ export function ProtocolMatrix({ activeTab }: { activeTab: ReactorTab }) {
       </div>
 
       <div className="mt-4 grid gap-3 md:grid-cols-[1fr_220px]">
-        <div className="overflow-hidden border-4 border-quantum-black bg-quantum-black py-3 font-mono text-xs uppercase text-white shadow-[5px_5px_0_#111]">
+        <div className="overflow-hidden border-4 border-quantum-black bg-[#0a0a14] py-3 font-mono text-xs uppercase text-white shadow-[5px_5px_0_#6e56ff]">
           <div className="matrix-marquee">
             ARC TESTNET / CIRCLE APPKIT / PRIVY AUTH / PUBLIC RPC / LIVE BALANCE / ROUTE ENGINE
           </div>
         </div>
-        <div className="grid place-items-center border-4 border-quantum-black bg-quantum-yellow p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#111]">
+        <div className="grid place-items-center border-4 border-quantum-black bg-quantum-yellow p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#6e56ff]">
           <Radio className="mb-1 h-5 w-5" />
           Reactor Online
         </div>
@@ -413,7 +413,7 @@ export function ProtocolMatrix({ activeTab }: { activeTab: ReactorTab }) {
         {['QUOTE', 'SIGN', 'FINALIZE'].map((item, index) => (
           <div
             key={item}
-            className="matrix-step border-4 border-quantum-black bg-quantum-paper p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#111]"
+            className="matrix-step border-4 border-quantum-black bg-quantum-panel p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#6e56ff]"
             style={{ '--route-delay': `${index * 180}ms` } as CSSProperties}
           >
             <Boxes className="mb-2 h-5 w-5 text-quantum-purple" />

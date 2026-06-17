@@ -20,15 +20,15 @@ export function SignalRail() {
   const error = txHistory.filter((tx) => tx.status === 'error').length
 
   return (
-    <Panel className="signal-rail animate-reveal bg-quantum-black p-0 text-white" shadow="cyan">
+    <Panel className="signal-rail animate-reveal bg-[#0a0a14] p-0 text-white" shadow="cyan">
       <div className="signal-rail-grid" />
-      <div className="relative z-10 border-b-4 border-white bg-white px-4 py-3 text-quantum-black">
+      <div className="relative z-10 border-b-4 border-white bg-quantum-panel px-4 py-3 text-quantum-black">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 font-display text-3xl leading-none">
             <RadioTower className="h-6 w-6 text-quantum-red" />
             LIVE SIGNAL
           </div>
-          <div className="border-4 border-quantum-black bg-quantum-yellow px-2 py-1 font-mono text-[10px] uppercase shadow-[4px_4px_0_#111]">
+          <div className="border-4 border-quantum-black bg-quantum-yellow px-2 py-1 font-mono text-[10px] uppercase shadow-[4px_4px_0_#6e56ff]">
             {latest?.status ?? 'ready'}
           </div>
         </div>
@@ -78,7 +78,7 @@ export function SignalRail() {
           })}
         </div>
 
-        <div className="grid grid-cols-[1fr_auto] gap-2 border-4 border-white bg-white p-2 text-quantum-black shadow-[5px_5px_0_#00e5ff]">
+        <div className="grid grid-cols-[1fr_auto] gap-2 border-4 border-white bg-quantum-panel p-2 text-quantum-black shadow-[5px_5px_0_#19e3c2]">
           <div className="font-mono text-[10px] uppercase">
             <div className="text-quantum-black/55">Latest</div>
             <div className="truncate">{latest?.summary ?? 'waiting for first tx'}</div>
@@ -88,7 +88,7 @@ export function SignalRail() {
           </div>
         </div>
 
-        <div className="signal-meter border-4 border-white bg-quantum-paper p-2 shadow-[5px_5px_0_#ff4d8d]">
+        <div className="signal-meter border-4 border-white bg-quantum-panel p-2 shadow-[5px_5px_0_#19e3c2]">
           <Gauge className="h-4 w-4 text-quantum-purple" />
           <span />
           <span />

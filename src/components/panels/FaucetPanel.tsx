@@ -17,7 +17,7 @@ export function FaucetPanel() {
       </div>
 
       <div className="grid gap-3 md:grid-cols-[1fr_220px]">
-        <div className="mini-swap-box bg-white font-mono text-[11px] uppercase leading-4">
+        <div className="mini-swap-box bg-quantum-panel font-mono text-[11px] uppercase leading-4">
           Official faucet opens outside because Circle blocks iframe embedding.
           Copy wallet, open faucet, paste address, claim test USDC.
         </div>
@@ -55,7 +55,7 @@ export function FaucetPanel() {
         </Button>
       </div>
 
-      <div className="mt-3 border-4 border-quantum-black bg-white p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#111]">
+      <div className="mt-3 border-4 border-quantum-black bg-quantum-panel p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#6e56ff]">
         Faucet source:{' '}
         <a
           href={faucetUrl}

@@ -6,22 +6,23 @@ export default {
     extend: {
       colors: {
         quantum: {
-          black: '#111111',
-          paper: '#F5F0E8',
-          panel: '#FFFFFF',
-          ink: '#111111',
-          yellow: '#FFD60A',
-          cyan: '#00E5FF',
-          red: '#FF4D8D',
-          green: '#00C2A8',
-          purple: '#8A5CF6',
-          orange: '#FF9F1C'
+          black: '#ECECF1',
+          paper: '#07070C',
+          panel: '#12101F',
+          ink: '#ECECF1',
+          yellow: '#FFB020',
+          cyan: '#19E3C2',
+          red: '#FF7A1A',
+          green: '#19E3C2',
+          purple: '#6E56FF',
+          orange: '#FF8C00'
         }
       },
       boxShadow: {
-        brutal: '7px 7px 0 #111111',
-        brutalCyan: '7px 7px 0 #00E5FF',
-        brutalRed: '7px 7px 0 #FF4D8D'
+        brutal: '6px 6px 0 #6E56FF',
+        brutalCyan: '6px 6px 0 #19E3C2',
+        brutalRed: '6px 6px 0 #FF8C00',
+        brutal3d: '3px 3px 0 #19E3C2, 6px 6px 0 #6E56FF, 9px 9px 0 rgba(0,0,0,0.6)'
       },
       fontFamily: {
         display: ['DM Sans', 'Arial Black', 'sans-serif'],

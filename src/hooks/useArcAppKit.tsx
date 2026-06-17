@@ -23,6 +23,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode
 } from 'react'
@@ -155,7 +156,11 @@ const signInLifetimeMs = 7 * 24 * 60 * 60 * 1000
 
 function getInjectedProvider() {
   const provider = window.ethereum
-  if (!provider) throw new Error('Injected wallet tidak ditemukan.')
+  if (!provider) {
+    throw new Error(
+      'Tidak ada wallet terdeteksi. Untuk login Google/email, set VITE_PRIVY_APP_ID di .env lalu restart dev server. Untuk wallet, pasang MetaMask/Rabby.'
+    )
+  }
   return provider
 }
 
@@ -736,6 +741,20 @@ export function ArcKitProvider({ children }: { children: ReactNode }) {
       setIsConnecting(false)
     }
   }, [account, privy, resetWalletState, updateManualDisconnect])
+
+  // Auto-verify: begitu wallet terhubung tapi belum signed-in, langsung minta tanda tangan
+  // sekali tanpa user klik "Verify" manual. Ref mencegah loop kalau user menolak.
+  const autoVerifyRef = useRef<string | null>(null)
+  useEffect(() => {
+    if (!account) {
+      autoVerifyRef.current = null
+      return
+    }
+    if (manualDisconnected || isSignedIn || isConnecting) return
+    if (autoVerifyRef.current === account) return
+    autoVerifyRef.current = account
+    void signIn()
+  }, [account, isConnecting, isSignedIn, manualDisconnected, signIn])
 
   const readyAdapter = useCallback(async () => {
     await switchToArc()

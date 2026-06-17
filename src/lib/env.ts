@@ -9,3 +9,5 @@ export const envStatus = {
   circleKit: true,
   privy: Boolean(PRIVY_APP_ID)
 }
+
+export const socialLoginReady = Boolean(PRIVY_APP_ID)
