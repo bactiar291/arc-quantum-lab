@@ -10,6 +10,7 @@ export interface StoredSession {
   sessionAddress: Address
   smartAccountAddress: Address
   encryptedKey: string
+  sessionEntropy: string
   expiresAt: number
   signature: Hex | null
   createdAt: number
@@ -74,6 +75,11 @@ async function cryptoKey(owner: Address, salt: Uint8Array, entropy?: string) {
     false,
     ['encrypt', 'decrypt']
   )
+}
+
+export function generateSessionEntropy(): string {
+  const entropy = crypto.getRandomValues(new Uint8Array(32))
+  return bytesToBase64(entropy)
 }
 
 export async function encryptSessionKey(privateKey: Hex, owner: Address, entropy?: string) {

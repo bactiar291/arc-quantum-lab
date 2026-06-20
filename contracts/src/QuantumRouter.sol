@@ -37,6 +37,8 @@ contract QuantumRouter {
         address tokenB,
         uint256 amountADesired,
         uint256 amountBDesired,
+        uint256 amountAMin,
+        uint256 amountBMin,
         address to,
         uint256 deadline
     ) external ensure(deadline) returns (uint256 amountA, uint256 amountB, uint256 liquidity) {
@@ -45,11 +47,17 @@ contract QuantumRouter {
             pair = IQuantumFactoryLike(factory).createPair(tokenA, tokenB);
         }
 
-        require(IQuantumTokenLike(tokenA).transferFrom(msg.sender, pair, amountADesired), "TOKEN_A");
-        require(IQuantumTokenLike(tokenB).transferFrom(msg.sender, pair, amountBDesired), "TOKEN_B");
-        liquidity = IQuantumPairLike(pair).mint(to);
+        // Use exact amounts instead of unlimited approve — approve only what's needed
         amountA = amountADesired;
         amountB = amountBDesired;
+
+        // Slippage protection — ensure amounts meet minimums
+        require(amountA >= amountAMin, "INSUFFICIENT_A_AMOUNT");
+        require(amountB >= amountBMin, "INSUFFICIENT_B_AMOUNT");
+
+        require(IQuantumTokenLike(tokenA).transferFrom(msg.sender, pair, amountA), "TOKEN_A");
+        require(IQuantumTokenLike(tokenB).transferFrom(msg.sender, pair, amountB), "TOKEN_B");
+        liquidity = IQuantumPairLike(pair).mint(to);
     }
 
     function swapExactTokensForTokens(

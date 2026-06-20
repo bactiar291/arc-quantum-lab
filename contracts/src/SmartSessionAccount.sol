@@ -34,6 +34,15 @@ contract SmartSessionAccount {
         owner = owner_;
     }
 
+    /// @notice Populate the allowedTargets whitelist at deploy time.
+    /// @param targets Array of addresses that this account may call.
+    function initializeAllowedTargets(address[] calldata targets) external onlyOwner {
+        for (uint256 i = 0; i < targets.length; i++) {
+            require(targets[i] != address(0), "ZERO_TARGET");
+            allowedTargets[targets[i]] = true;
+        }
+    }
+
     receive() external payable {}
 
     function setAllowedTarget(address target, bool allowed) external onlyOwner {

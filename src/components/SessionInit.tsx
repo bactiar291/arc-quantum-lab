@@ -1,5 +1,4 @@
 import { Copy, KeyRound, RotateCcw, ShieldAlert } from 'lucide-react'
-import { useState } from 'react'
 import { useBalance } from 'wagmi'
 
 import { ARC_CHAIN_ID, addressUrl } from '../lib/arc'
@@ -10,7 +9,6 @@ import { Panel } from './ui/Panel'
 const short = (value: string) => `${value.slice(0, 8)}...${value.slice(-6)}`
 
 export function SessionInit() {
-  const [showPrivateKey, setShowPrivateKey] = useState(false)
   const {
     sessionKey,
     sessionAddress,
@@ -34,10 +32,6 @@ export function SessionInit() {
 
   const copySmartAccount = async () => {
     if (smartAccountAddress) await navigator.clipboard.writeText(smartAccountAddress)
-  }
-
-  const copyExecutorPrivateKey = async () => {
-    if (sessionKey) await navigator.clipboard.writeText(sessionKey)
   }
 
   return (
@@ -97,30 +91,11 @@ export function SessionInit() {
         <div className="border-2 border-quantum-cyan bg-black p-3 shadow-[3px_3px_0_#FFE500]">
           <div className="text-white/55">Gas Payer Private Key</div>
           <div className="mt-1 break-all text-quantum-cyan">
-            {showPrivateKey && sessionKey
-              ? sessionKey
-              : sessionKey
-                ? 'Hidden'
-                : 'Not generated'}
+            {sessionKey ? '••••••••••••••••' : 'Not generated'}
           </div>
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <Button
-              variant="ghost"
-              className="min-h-9 px-2 py-1 text-base"
-              onClick={() => setShowPrivateKey((value) => !value)}
-              disabled={!sessionKey}
-            >
-              {showPrivateKey ? 'Hide PK' : 'Reveal PK'}
-            </Button>
-            <Button
-              variant="cyan"
-              className="min-h-9 px-2 py-1 text-base"
-              onClick={() => void copyExecutorPrivateKey()}
-              disabled={!sessionKey || !showPrivateKey}
-            >
-              Copy PK
-            </Button>
-          </div>
+          <p className="mt-2 text-[10px] text-white/40">
+            Session private keys are stored encrypted and are never exposed in the UI.
+          </p>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div className="border-2 border-white bg-black p-3">

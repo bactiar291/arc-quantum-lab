@@ -163,7 +163,6 @@ export const useAppStore = create<AppState>()(
       name: 'arc-quantum-lab-store',
       partialize: (state) => ({
         deployedTokens: state.deployedTokens,
-        txHistory: state.txHistory,
         ammFactoryAddress: state.ammFactoryAddress,
         ammRouterAddress: state.ammRouterAddress,
         activeTab: state.activeTab

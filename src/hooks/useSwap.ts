@@ -39,6 +39,11 @@ export function useSwap() {
   }
 
   const executeSwap = async (params: SwapParams) => {
+    console.warn(
+      '[Security] Swap transactions are publicly visible in the mempool and may be ' +
+      'front-run by MEV bots. For production use, consider routing transactions through ' +
+      'a private RPC / Flashbots Protect endpoint to reduce MEV exposure.'
+    )
     if (!routerAddress) throw new Error('Router address missing. Run Setup AMM first.')
     if (!smartAccountAddress) throw new Error('Smart account missing.')
     if (!isAddress(params.tokenIn)) throw new Error('Invalid tokenIn address.')

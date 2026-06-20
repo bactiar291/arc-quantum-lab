@@ -1,3 +1,26 @@
+/*
+ * Content Security Policy (CSP) Best Practices:
+ * -----------------------------------------------
+ * This application should deploy with a strict CSP header. Recommended directives:
+ *
+ *   Content-Security-Policy:
+ *     default-src 'self';
+ *     script-src 'self' 'nonce-{GENERATED_NONCE}';
+ *     style-src 'self' 'nonce-{GENERATED_NONCE}';
+ *     img-src 'self' data: https:;
+ *     connect-src 'self' https://*.arc.network wss://*.arc.network;
+ *     font-src 'self' https://fonts.gstatic.com;
+ *     frame-ancestors 'none';
+ *     base-uri 'self';
+ *     form-action 'self';
+ *
+ * For Next.js, use the `nonce` prop on <Script> tags and inject the nonce via
+ * middleware. For Vite/SPA, generate a nonce at build time or via server middleware
+ * and set it as a meta tag. Inline <style> from Tailwind must use the nonce.
+ *
+ * NEVER use 'unsafe-inline' or 'unsafe-eval' in production.
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;

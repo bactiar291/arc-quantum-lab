@@ -7,6 +7,18 @@ interface IQuantumERC20 {
 }
 
 contract QuantumPair {
+    // --- Reentrancy guard ---
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+    uint256 private _status;
+
+    modifier nonReentrant() {
+        require(_status != _ENTERED, "REENTRANT");
+        _status = _ENTERED;
+        _;
+        _status = _NOT_ENTERED;
+    }
+
     string public constant name = "Quantum LP";
     string public constant symbol = "QLP";
     uint8 public constant decimals = 18;
@@ -35,6 +47,7 @@ contract QuantumPair {
 
     constructor() {
         factory = msg.sender;
+        _status = _NOT_ENTERED;
     }
 
     function initialize(address token0_, address token1_) external onlyFactory {
@@ -93,7 +106,7 @@ contract QuantumPair {
         uint256 amountIn,
         uint256 amountOutMin,
         address to
-    ) external returns (uint256 amountOut) {
+    ) external nonReentrant returns (uint256 amountOut) {
         require(tokenIn == token0 || tokenIn == token1, "TOKEN");
         require(to != token0 && to != token1, "TO");
 
@@ -104,13 +117,16 @@ contract QuantumPair {
         amountOut = getAmountOut(amountIn, reserveIn, reserveOut);
         require(amountOut >= amountOutMin, "SLIPPAGE");
 
-        address tokenOut = zeroForOne ? token1 : token0;
-        require(IQuantumERC20(tokenOut).transfer(to, amountOut), "TRANSFER");
-
+        // EFFECTS — update reserves BEFORE external transfer (CEI pattern)
         _update(
             IQuantumERC20(token0).balanceOf(address(this)),
             IQuantumERC20(token1).balanceOf(address(this))
         );
+
+        address tokenOut = zeroForOne ? token1 : token0;
+        // INTERACTIONS — external call comes last
+        require(IQuantumERC20(tokenOut).transfer(to, amountOut), "TRANSFER");
+
         emit Swap(msg.sender, tokenIn, amountIn, amountOut, to);
     }
 
