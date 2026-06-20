@@ -33,30 +33,30 @@ function BalanceRow({
   value: string
 }) {
   return (
-    <div className="border-2 border-quantum-black bg-quantum-panel p-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#6e56ff]">
+    <div className="rounded-xl border border-quantum-ink/5 bg-white p-2.5 font-mono text-[10px] shadow-soft">
       <div className="mb-1 flex items-center justify-between gap-3">
-        <span className="marker-blue text-quantum-black">{chain}</span>
-        <span className="text-quantum-yellow">{symbol}</span>
+        <span className="marker-blue text-quantum-ink/60">{chain}</span>
+        <span className="text-quantum-blue font-semibold">{symbol}</span>
       </div>
       <div className="grid grid-cols-[1fr_auto] gap-3">
         <div className="min-w-0">
-          <div className="truncate text-quantum-black">
+          <div className="truncate text-quantum-ink">
             <span className="marker-blue">{label}</span>
           </div>
           {address ? (
             <div className="mt-1 flex items-center gap-2">
-              <div className="truncate text-quantum-black/40">{address}</div>
+              <div className="truncate text-quantum-ink/30">{address}</div>
               <CopyAddress
                 address={address}
                 iconOnly
-                className="h-5 w-5 shrink-0 border-quantum-black/50 shadow-none"
+                className="h-5 w-5 shrink-0 border-quantum-ink/10 shadow-none"
               />
             </div>
           ) : (
-            <div className="text-quantum-black/40">native gas balance</div>
+            <div className="text-quantum-ink/30">native gas balance</div>
           )}
         </div>
-        <div className="text-right text-quantum-cyan">{value}</div>
+        <div className="text-right text-quantum-blue font-semibold">{value}</div>
       </div>
     </div>
   )
@@ -180,14 +180,14 @@ export function Dashboard() {
 
   return (
     <Panel className="dashboard-panel animate-reveal p-3" shadow="cyan">
-      <div className="flex items-center gap-2 border-b-2 border-quantum-black/15 pb-2 font-display text-xl">
-        <WalletCards className="h-5 w-5 text-quantum-yellow" />
-        ARC WALLET
+      <div className="flex items-center gap-2 border-b border-quantum-ink/5 pb-2.5 font-display text-lg">
+        <WalletCards className="h-5 w-5 text-quantum-blue" />
+        Arc Wallet
       </div>
 
       <div className="mt-3 space-y-3">
         <div className="grid grid-cols-[1fr_auto] gap-2">
-          <div className="min-w-0 border-2 border-quantum-black bg-quantum-panel px-3 py-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#6e56ff]">
+          <div className="min-w-0 rounded-xl border border-quantum-ink/5 bg-white px-3 py-2.5 font-mono text-[10px] shadow-soft">
             <div className="flex items-center gap-2 text-quantum-purple">
               <ArrowLeftRight className="h-3.5 w-3.5" />
               {privyEnabled ? 'Privy' : 'Wallet'}:{' '}
@@ -196,7 +196,7 @@ export function Dashboard() {
               </b>
             </div>
             <div className="mt-1 flex items-center gap-2">
-              <div className="min-w-0 truncate text-quantum-black/55">
+              <div className="min-w-0 truncate text-quantum-ink/40">
                 {ownerAddress ?? 'connect wallet'}
               </div>
               {ownerAddress ? (
@@ -210,7 +210,7 @@ export function Dashboard() {
           </div>
           <Button
             variant="cyan"
-            className="min-h-0 px-2 py-1 text-sm"
+            className="min-h-0 px-2.5 py-1.5 text-sm"
             onClick={() => void refreshBalances()}
             disabled={refreshing}
           >
@@ -219,7 +219,7 @@ export function Dashboard() {
         </div>
 
         <div className="grid gap-2">
-          <div className="flex items-center justify-between font-mono text-[10px] uppercase text-quantum-black/55">
+          <div className="flex items-center justify-between font-mono text-[10px] text-quantum-ink/40">
             <span>Balances</span>
             <span>{pendingCount ? `${pendingCount} pending` : 'ready'}</span>
           </div>
@@ -266,12 +266,12 @@ export function Dashboard() {
           ))}
         </div>
 
-        <div className="space-y-2 border-t-2 border-quantum-black/15 pt-2">
+        <div className="space-y-2 border-t border-quantum-ink/5 pt-2">
           <div className="flex items-center justify-between gap-3">
-            <div className="font-display text-lg">RECENT TX</div>
+            <div className="font-display text-base">Recent Tx</div>
             <Button
               variant="red"
-              className="min-h-8 px-2 py-1 text-sm"
+              className="min-h-8 px-2.5 py-1.5 text-sm"
               onClick={clearTxHistory}
               disabled={!txHistory.length}
             >
@@ -282,10 +282,10 @@ export function Dashboard() {
             txHistory.slice(0, 8).map((tx) => (
               <div
                 key={tx.id}
-                className="border-2 border-quantum-black bg-quantum-panel p-2 font-mono text-[10px] uppercase shadow-[2px_2px_0_#6e56ff]"
+                className="rounded-xl border border-quantum-ink/5 bg-white p-2.5 font-mono text-[10px] shadow-soft"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-quantum-black">{tx.summary}</span>
+                  <span className="text-quantum-ink">{tx.summary}</span>
                   <div className="flex items-center gap-2">
                     <span
                       className={
@@ -293,14 +293,14 @@ export function Dashboard() {
                           ? 'text-quantum-green'
                           : tx.status === 'error'
                             ? 'text-quantum-red'
-                            : 'text-quantum-yellow'
+                            : 'text-quantum-orange'
                       }
                     >
                       {tx.status}
                     </span>
                     <button
                       aria-label={`Delete ${tx.summary}`}
-                      className="border-2 border-quantum-black bg-quantum-red px-2 py-1 text-quantum-black"
+                      className="rounded-lg bg-quantum-red/10 px-2 py-1 text-quantum-red hover:bg-quantum-red/20 transition-colors"
                       onClick={() => removeTx(tx.id)}
                     >
                       DEL
@@ -309,7 +309,7 @@ export function Dashboard() {
                 </div>
                 {tx.hash ? (
                   <a
-                    className="mt-1 block truncate text-quantum-cyan hover:text-quantum-yellow"
+                    className="mt-1 block truncate text-quantum-blue hover:text-quantum-purple transition-colors"
                     href={txUrl(tx.hash)}
                     target="_blank"
                     rel="noreferrer"
@@ -323,7 +323,7 @@ export function Dashboard() {
               </div>
             ))
           ) : (
-            <div className="border-2 border-quantum-black bg-quantum-panel p-2 font-mono text-xs uppercase text-quantum-black/50 shadow-[2px_2px_0_#6e56ff]">
+            <div className="rounded-xl border border-quantum-ink/5 bg-white p-2.5 font-mono text-xs text-quantum-ink/40 shadow-soft">
               No transaction yet.
             </div>
           )}

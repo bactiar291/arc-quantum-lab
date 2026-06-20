@@ -13,16 +13,16 @@ export function TxStatus({ hash, error, busy }: TxStatusProps) {
   if (!hash && !error && !busy) return null
 
   return (
-    <div className="mt-4 border-4 border-quantum-black bg-quantum-panel p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#6e56ff]">
+    <div className="mt-4 rounded-2xl border border-quantum-ink/10 bg-white p-4 font-mono text-xs shadow-soft">
       {busy ? (
-        <div className="animate-glitch text-quantum-yellow">QUANTUM PROCESSING...</div>
+        <div className="animate-pulse text-quantum-blue font-semibold">Processing...</div>
       ) : null}
       {hash ? (
         <a
           href={txUrl(hash)}
           target="_blank"
           rel="noreferrer"
-          className="mt-2 flex items-center gap-2 text-quantum-cyan hover:text-quantum-yellow"
+          className="mt-2 flex items-center gap-2 text-quantum-blue hover:text-quantum-purple transition-colors"
         >
           TX {hash.slice(0, 10)}...{hash.slice(-6)}
           <ExternalLink className="h-4 w-4" />

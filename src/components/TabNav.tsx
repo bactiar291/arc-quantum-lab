@@ -3,11 +3,11 @@ import { Boxes, Rocket, Send, Shuffle } from 'lucide-react'
 import { useAppStore, type AppTab } from '../store/useAppStore'
 import { Button } from './ui/Button'
 
-const tabs: Array<{ id: AppTab; label: string; icon: typeof Shuffle }> = [
-  { id: 'swap', label: 'Swap', icon: Shuffle },
-  { id: 'liquidity', label: 'Liquidity', icon: Boxes },
-  { id: 'send', label: 'Send', icon: Send },
-  { id: 'deploy', label: 'Deploy', icon: Rocket }
+const tabs: Array<{ id: AppTab; label: string; icon: typeof Shuffle; color: string }> = [
+  { id: 'swap', label: 'Swap', icon: Shuffle, color: 'text-quantum-blue' },
+  { id: 'liquidity', label: 'Liquidity', icon: Boxes, color: 'text-quantum-purple' },
+  { id: 'send', label: 'Send', icon: Send, color: 'text-quantum-orange' },
+  { id: 'deploy', label: 'Deploy', icon: Rocket, color: 'text-quantum-green' }
 ]
 
 export function TabNav() {
@@ -24,9 +24,9 @@ export function TabNav() {
             key={tab.id}
             variant={active ? 'primary' : 'ghost'}
             onClick={() => setActiveTab(tab.id)}
-            className="w-full"
+            className={`w-full ${active ? '' : ''}`}
           >
-            <Icon className="h-5 w-5" />
+            <Icon className={`h-5 w-5 ${active ? '' : tab.color}`} />
             {tab.label}
           </Button>
         )

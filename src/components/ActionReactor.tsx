@@ -28,36 +28,36 @@ interface ModeConfig {
 
 const modeConfig: Record<ReactorTab, ModeConfig> = {
   swap: {
-    title: 'SWAP REACTOR',
-    label: 'USDC / EURC ROTOR',
+    title: 'Swap Reactor',
+    label: 'USDC / EURC Rotor',
     icon: Shuffle,
-    colors: ['#6e56ff', '#19e3c2', '#ff8c00'],
-    pulse: 'bg-quantum-cyan',
-    telemetry: ['PAIR', 'QUOTE', 'SLIP', 'ROUTE']
+    colors: ['#5B8DEF', '#5CCBA0', '#F4A261'],
+    pulse: 'bg-quantum-blue',
+    telemetry: ['Pair', 'Quote', 'Slip', 'Route']
   },
   send: {
-    title: 'SEND ARRAY',
-    label: 'TOKEN VECTOR',
+    title: 'Send Array',
+    label: 'Token Vector',
     icon: Send,
-    colors: ['#19e3c2', '#6e56ff', '#ff8c00'],
+    colors: ['#5CCBA0', '#9B7FE6', '#F4A261'],
     pulse: 'bg-quantum-green',
-    telemetry: ['TO', 'VALUE', 'GAS', 'HASH']
+    telemetry: ['To', 'Value', 'Gas', 'Hash']
   },
   faucet: {
-    title: 'FAUCET STREAM',
-    label: 'TESTNET FUEL',
+    title: 'Faucet Stream',
+    label: 'Testnet Fuel',
     icon: Waves,
-    colors: ['#ff8c00', '#19e3c2', '#6e56ff'],
+    colors: ['#F4A261', '#5CCBA0', '#5B8DEF'],
     pulse: 'bg-quantum-yellow',
-    telemetry: ['CLAIM', 'ARC', 'SEPOLIA', 'SYNC']
+    telemetry: ['Claim', 'Arc', 'Sepolia', 'Sync']
   },
   deploy: {
-    title: 'DEPLOY FORGE',
-    label: 'ERC20 BYTECODE PRESS',
+    title: 'Deploy Forge',
+    label: 'ERC20 Bytecode Press',
     icon: Rocket,
-    colors: ['#ff8c00', '#6e56ff', '#19e3c2'],
-    pulse: 'bg-quantum-red',
-    telemetry: ['NAME', 'SYMBOL', 'SUPPLY', 'CA']
+    colors: ['#F4A261', '#9B7FE6', '#5CCBA0'],
+    pulse: 'bg-quantum-orange',
+    telemetry: ['Name', 'Symbol', 'Supply', 'CA']
   }
 }
 
@@ -70,10 +70,10 @@ function matchesMode(mode: ReactorTab, tx: Transaction) {
 }
 
 function statusTone(status: ReactorStatus) {
-  if (status === 'pending') return 'PROCESSING'
-  if (status === 'success') return 'CONFIRMED'
-  if (status === 'error') return 'REVERTED'
-  return 'STANDBY'
+  if (status === 'pending') return 'Processing'
+  if (status === 'success') return 'Confirmed'
+  if (status === 'error') return 'Reverted'
+  return 'Standby'
 }
 
 function makeCoreGeometry(mode: ReactorTab) {
@@ -84,7 +84,7 @@ function makeCoreGeometry(mode: ReactorTab) {
 }
 
 function makeParticleField(colors: THREE.Color[]) {
-  const count = 120
+  const count = 80
   const positions = new Float32Array(count * 3)
   const palette = new Float32Array(count * 3)
 
@@ -107,10 +107,10 @@ function makeParticleField(colors: THREE.Color[]) {
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
   geometry.setAttribute('color', new THREE.BufferAttribute(palette, 3))
   const material = new THREE.PointsMaterial({
-    size: 0.035,
+    size: 0.03,
     vertexColors: true,
     transparent: true,
-    opacity: 0.82
+    opacity: 0.6
   })
   return new THREE.Points(geometry, material)
 }
@@ -177,9 +177,9 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
     const coreMaterial = new THREE.MeshStandardMaterial({
       color: palette[0],
       emissive: palette[1],
-      emissiveIntensity: status === 'pending' ? 0.48 : 0.24,
-      metalness: 0.48,
-      roughness: 0.24
+      emissiveIntensity: status === 'pending' ? 0.3 : 0.15,
+      metalness: 0.3,
+      roughness: 0.4
     })
     const core = new THREE.Mesh(makeCoreGeometry(mode), coreMaterial)
     rig.add(core)
@@ -187,7 +187,7 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
     const ringMaterial = new THREE.MeshBasicMaterial({
       color: palette[2],
       transparent: true,
-      opacity: 0.92
+      opacity: 0.6
     })
     const ringA = new THREE.Mesh(new THREE.TorusGeometry(1.62, 0.018, 8, 80), ringMaterial)
     const ringB = new THREE.Mesh(new THREE.TorusGeometry(1.28, 0.014, 8, 80), ringMaterial.clone())
@@ -203,7 +203,7 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
         new THREE.MeshStandardMaterial({
           color: palette[index % palette.length],
           emissive: palette[index % palette.length],
-          emissiveIntensity: 0.35
+          emissiveIntensity: 0.2
         })
       )
       const angle = (index / 8) * Math.PI * 2
@@ -215,9 +215,9 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
     const particles = makeParticleField(palette)
     scene.add(particles)
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.62))
-    const lightA = new THREE.PointLight(palette[0], 2.2, 10)
-    const lightB = new THREE.PointLight(palette[2], 1.5, 9)
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8))
+    const lightA = new THREE.PointLight(palette[0], 1.5, 10)
+    const lightB = new THREE.PointLight(palette[2], 1.0, 9)
     lightA.position.set(2.6, 2.2, 3.4)
     lightB.position.set(-3, -1.5, 2.7)
     scene.add(lightA, lightB)
@@ -234,16 +234,16 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
 
     const animate = (time: number) => {
       const t = time * 0.001
-      const speed = status === 'pending' ? 1.9 : status === 'error' ? 0.55 : 0.95
-      rig.rotation.y = t * 0.38 * speed
-      rig.rotation.x = Math.sin(t * 0.48) * 0.18
-      core.rotation.x = t * 0.72 * speed
-      core.rotation.z = t * 0.42 * speed
-      ringA.rotation.z = t * 0.86 * speed
-      ringB.rotation.x = t * -0.72 * speed
-      orbit.rotation.z = t * 1.15 * speed
-      particles.rotation.y = t * 0.12 * speed
-      particles.rotation.x = Math.sin(t * 0.16) * 0.08
+      const speed = status === 'pending' ? 1.4 : status === 'error' ? 0.55 : 0.85
+      rig.rotation.y = t * 0.32 * speed
+      rig.rotation.x = Math.sin(t * 0.42) * 0.14
+      core.rotation.x = t * 0.62 * speed
+      core.rotation.z = t * 0.36 * speed
+      ringA.rotation.z = t * 0.72 * speed
+      ringB.rotation.x = t * -0.62 * speed
+      orbit.rotation.z = t * 0.95 * speed
+      particles.rotation.y = t * 0.1 * speed
+      particles.rotation.x = Math.sin(t * 0.14) * 0.06
       renderer.render(scene, camera)
       frameId = window.requestAnimationFrame(animate)
     }
@@ -294,61 +294,63 @@ export function ActionReactor({ activeTab }: { activeTab: ReactorTab }) {
   )
 
   return (
-    <Panel className="animate-reveal overflow-hidden bg-[#0a0a14] p-0 text-white" shadow="cyan">
+    <Panel className="animate-reveal overflow-hidden p-0 text-quantum-ink" shadow="cyan">
       <div className="relative min-h-[300px]">
         <div className="reactor-bg" />
         <QuantumCanvas mode={activeTab} status={status} />
 
         <div className="relative z-10 grid min-h-[300px] grid-rows-[auto_1fr_auto]">
-          <div className="flex flex-col gap-2 border-b-4 border-white/80 bg-quantum-panel/85 p-3 text-quantum-black md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-2 border-b border-quantum-ink/5 bg-white/80 p-3 backdrop-blur-sm md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-3">
-              <div className={`grid h-10 w-10 place-items-center border-4 border-quantum-black ${config.pulse} shadow-[5px_5px_0_#6e56ff]`}>
-                <Icon className="h-6 w-6" />
+              <div className={`grid h-10 w-10 place-items-center rounded-xl ${config.pulse} text-white`}>
+                <Icon className="h-5 w-5" />
               </div>
               <div>
-                <div className="font-display text-3xl leading-none md:text-4xl">
+                <div className="font-display text-xl leading-none md:text-2xl">
                   {config.title}
                 </div>
-                <div className="font-mono text-[11px] uppercase text-quantum-black/55">
+                <div className="font-mono text-[11px] text-quantum-ink/40">
                   {config.label}
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-2 font-mono text-[10px] uppercase">
-              <div className="border-4 border-quantum-black bg-quantum-green px-2 py-1">
+            <div className="grid grid-cols-3 gap-2 font-mono text-[10px]">
+              <div className="rounded-lg bg-quantum-green/10 px-2 py-1.5 text-quantum-green">
                 OK {counters.success}
               </div>
-              <div className="border-4 border-quantum-black bg-quantum-yellow px-2 py-1">
-                RUN {counters.pending}
+              <div className="rounded-lg bg-quantum-yellow/10 px-2 py-1.5 text-quantum-orange">
+                Run {counters.pending}
               </div>
-              <div className="border-4 border-quantum-black bg-quantum-red px-2 py-1">
-                ERR {counters.error}
+              <div className="rounded-lg bg-quantum-red/10 px-2 py-1.5 text-quantum-red">
+                Err {counters.error}
               </div>
             </div>
           </div>
 
           <div className="relative">
-            <div className="absolute left-3 top-3 max-w-[72%] truncate border-4 border-white bg-[#0a0a14]/85 px-3 py-2 font-mono text-[11px] uppercase text-white shadow-[5px_5px_0_#19e3c2]">
-              <span className={status === 'pending' ? 'animate-pulse text-quantum-yellow' : 'text-quantum-cyan'}>
+            <div className="absolute left-3 top-3 max-w-[72%] truncate rounded-xl bg-white/90 px-3 py-2 font-mono text-[11px] shadow-soft backdrop-blur-sm">
+              <span className={status === 'pending' ? 'animate-pulse text-quantum-orange' : 'text-quantum-blue'}>
                 {statusTone(status)}
               </span>
-              {latestTx ? <span className="ml-2 text-white/55">{latestTx.summary}</span> : null}
+              {latestTx ? <span className="ml-2 text-quantum-ink/40">{latestTx.summary}</span> : null}
             </div>
-            <div className="absolute bottom-4 right-4 hidden max-w-[360px] border-4 border-white bg-quantum-panel/85 p-3 font-mono text-[11px] uppercase text-quantum-black shadow-[5px_5px_0_#19e3c2] md:block">
+            <div className="absolute bottom-4 right-4 hidden max-w-[360px] rounded-xl bg-white/90 p-3 font-mono text-[11px] text-quantum-ink/60 shadow-soft backdrop-blur-sm md:block">
               {latestTx?.hash ? latestTx.hash : 'NO ACTIVE HASH'}
             </div>
           </div>
 
-          <div className="grid gap-2 border-t-4 border-white/80 bg-quantum-panel/85 p-3 text-quantum-black md:grid-cols-4">
+          <div className="grid gap-2 border-t border-quantum-ink/5 bg-white/80 p-3 backdrop-blur-sm md:grid-cols-4">
             {config.telemetry.map((item, index) => (
               <div
                 key={item}
-                className="relative overflow-hidden border-4 border-quantum-black bg-quantum-panel px-3 py-3 font-mono text-[11px] uppercase shadow-[5px_5px_0_#6e56ff]"
+                className="relative overflow-hidden rounded-xl bg-white px-3 py-3 font-mono text-[11px] shadow-soft"
               >
                 <div className="signal-stream" style={{ animationDelay: `${index * 160}ms` }} />
                 <div className="relative z-10 flex items-center justify-between gap-2">
-                  <span className="text-quantum-black/55">{item}</span>
-                  <span>{status === 'pending' ? 'LIVE' : 'READY'}</span>
+                  <span className="text-quantum-ink/40">{item}</span>
+                  <span className={status === 'pending' ? 'text-quantum-orange' : 'text-quantum-green'}>
+                    {status === 'pending' ? 'Live' : 'Ready'}
+                  </span>
                 </div>
               </div>
             ))}
@@ -365,39 +367,38 @@ export function ProtocolMatrix({ activeTab }: { activeTab: ReactorTab }) {
   const latest = txHistory[0]
 
   return (
-    <Panel className="animate-reveal bg-quantum-panel" shadow="red">
-      <div className="mb-3 flex flex-col gap-2 border-b-4 border-quantum-black pb-3 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-2 font-display text-3xl leading-none">
-          <Activity className="h-6 w-6 text-quantum-red" />
-          PROTOCOL MATRIX
+    <Panel className="animate-reveal" shadow="red">
+      <div className="mb-3 flex flex-col gap-2 border-b border-quantum-ink/5 pb-3 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-center gap-2 font-display text-xl leading-none">
+          <Activity className="h-5 w-5 text-quantum-orange" />
+          Protocol Matrix
         </div>
-        <div className="border-4 border-quantum-black bg-quantum-cyan px-3 py-2 font-mono text-[11px] uppercase shadow-[5px_5px_0_#6e56ff]">
+        <div className="rounded-full bg-quantum-blue/10 px-3 py-1.5 font-mono text-[11px] text-quantum-blue">
           {latest ? latest.status : 'ready'} / {txHistory.length} tx
         </div>
       </div>
 
       <div className="grid gap-3 lg:grid-cols-4">
-        {modes.map(([mode, config], index) => {
-          const Icon = config.icon
+        {modes.map(([mode, cfg]) => {
+          const Icon = cfg.icon
           const active = mode === activeTab
           return (
             <div
               key={mode}
               className={`route-cell ${active ? 'route-cell-active' : ''}`}
-              style={{ '--route-delay': `${index * 140}ms` } as CSSProperties}
             >
-              <div className={`mb-2 grid h-9 w-9 place-items-center border-4 border-quantum-black ${config.pulse}`}>
-                <Icon className="h-5 w-5" />
+              <div className={`mb-2 grid h-8 w-8 place-items-center rounded-lg ${cfg.pulse} text-white`}>
+                <Icon className="h-4 w-4" />
               </div>
-              <div className="font-display text-2xl leading-none">{mode.toUpperCase()}</div>
-              <div className="mt-1 font-mono text-[10px] uppercase text-quantum-black/55">
-                {config.label}
+              <div className="font-display text-lg leading-none">{mode.toUpperCase()}</div>
+              <div className="mt-1 font-mono text-[10px] text-quantum-ink/40">
+                {cfg.label}
               </div>
               <div className="mt-3 grid grid-cols-3 gap-1">
-                {config.colors.map((color) => (
+                {cfg.colors.map((color) => (
                   <span
                     key={color}
-                    className="h-3 border-2 border-quantum-black"
+                    className="h-2 rounded-full"
                     style={{ backgroundColor: color }}
                   />
                 ))}
@@ -408,13 +409,13 @@ export function ProtocolMatrix({ activeTab }: { activeTab: ReactorTab }) {
       </div>
 
       <div className="mt-4 grid gap-3 md:grid-cols-[1fr_220px]">
-        <div className="overflow-hidden border-4 border-quantum-black bg-[#0a0a14] py-3 font-mono text-xs uppercase text-white shadow-[5px_5px_0_#6e56ff]">
+        <div className="overflow-hidden rounded-xl bg-quantum-ink/5 py-3 font-mono text-xs text-quantum-ink/60">
           <div className="matrix-marquee">
             ARC TESTNET / CIRCLE APPKIT / PRIVY AUTH / PUBLIC RPC / LIVE BALANCE / ROUTE ENGINE
           </div>
         </div>
-        <div className="grid place-items-center border-4 border-quantum-black bg-quantum-yellow p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#6e56ff]">
-          <Radio className="mb-1 h-5 w-5" />
+        <div className="grid place-items-center rounded-xl bg-quantum-yellow/15 p-3 font-mono text-xs text-quantum-ink/70">
+          <Radio className="mb-1 h-5 w-5 text-quantum-orange" />
           Reactor Online
         </div>
       </div>
@@ -423,10 +424,10 @@ export function ProtocolMatrix({ activeTab }: { activeTab: ReactorTab }) {
         {['QUOTE', 'SIGN', 'FINALIZE'].map((item, index) => (
           <div
             key={item}
-            className="matrix-step border-4 border-quantum-black bg-quantum-panel p-3 font-mono text-xs uppercase shadow-[5px_5px_0_#6e56ff]"
+            className="matrix-step rounded-xl bg-white p-3 font-mono text-xs shadow-soft"
             style={{ '--route-delay': `${index * 180}ms` } as CSSProperties}
           >
-            <Boxes className="mb-2 h-5 w-5 text-quantum-purple" />
+            <Boxes className="mb-2 h-4 w-4 text-quantum-purple" />
             {item}
           </div>
         ))}

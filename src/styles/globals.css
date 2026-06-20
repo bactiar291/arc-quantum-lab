@@ -1,32 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --paper: #07070c;
-  --bg-soft: #0e0c18;
-  --ink: #ececf1;
-  --panel: #12101f;
-  --fog: #1a1730;
-  --line: rgba(255, 255, 255, 0.1);
-  --line-2: rgba(255, 255, 255, 0.18);
-  --yellow: #ffb020;
-  --cyan: #19e3c2;
-  --green: #19e3c2;
-  --pink: #ff7a1a;
-  --orange: #ff8c00;
-  --purple: #6e56ff;
-  --accent: #6e56ff;
-  --accent-2: #19e3c2;
-  --accent-yellow: var(--yellow);
-  --accent-cyan: var(--cyan);
-  --accent-green: var(--green);
-  --accent-pink: var(--pink);
-  --accent-orange: var(--orange);
-  --accent-purple: var(--purple);
-  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --paper: #FFF8E7;
+  --paper-warm: #FFF3D6;
+  --panel: #FFFFFF;
+  --panel-hover: #FFFCF5;
+  --ink: #2D2A3E;
+  --ink-soft: #5C5775;
+  --ink-muted: #8E89A3;
+  --line: rgba(45, 42, 62, 0.1);
+  --line-2: rgba(45, 42, 62, 0.15);
+  --blue: #5B8DEF;
+  --blue-soft: #8BB4FF;
+  --green: #5CCBA0;
+  --green-soft: #8FE4C0;
+  --purple: #9B7FE6;
+  --purple-soft: #BDA8F0;
+  --orange: #F4A261;
+  --orange-soft: #F7C08A;
+  --pink: #E88DAA;
+  --pink-soft: #F0B5C8;
+  --yellow: #F4D35E;
+  --yellow-soft: #F7E38A;
+  --red: #EF7B7B;
+  --red-soft: #F4A5A5;
+  --cyan: #5CCBA0;
+  --accent: #5B8DEF;
+  --accent-2: #9B7FE6;
+  --shadow-color: rgba(45, 42, 62, 0.08);
+  --shadow-color-md: rgba(45, 42, 62, 0.12);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 * {
@@ -43,13 +51,13 @@ body {
   min-width: 320px;
   min-height: 100vh;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 16% 12%, rgba(110, 86, 255, 0.16), transparent 34%),
-    radial-gradient(circle at 84% 18%, rgba(25, 227, 194, 0.1), transparent 32%),
-    radial-gradient(circle at 70% 88%, rgba(110, 86, 255, 0.12), transparent 36%),
-    var(--paper);
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(91, 141, 239, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(155, 127, 230, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(244, 211, 94, 0.05) 0%, transparent 50%);
   background-attachment: fixed;
-  font-family: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -66,25 +74,29 @@ select {
 }
 
 ::selection {
-  background: var(--orange);
+  background: var(--blue-soft);
   color: var(--ink);
 }
 
 .font-display {
-  font-weight: 900;
-  letter-spacing: 0;
+  font-family: 'Nunito', 'Inter', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
+.font-body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Dot pattern background */
 .grid-noise {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: linear-gradient(to bottom, #000 0%, transparent 88%);
+  background-image: radial-gradient(circle, rgba(45, 42, 62, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
 }
 
 .scrollbar-none {
@@ -95,34 +107,12 @@ select {
   display: none;
 }
 
-.cyber-band {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background:
-    repeating-linear-gradient(
-      116deg,
-      transparent 0 48px,
-      rgba(255, 140, 0, 0.09) 48px 52px,
-      transparent 52px 104px
-    ),
-    repeating-linear-gradient(
-      46deg,
-      transparent 0 60px,
-      rgba(124, 58, 237, 0.07) 60px 63px,
-      transparent 63px 126px
-    ),
-    radial-gradient(circle at 18% 18%, rgba(168, 85, 247, 0.2), transparent 24%),
-    radial-gradient(circle at 88% 12%, rgba(255, 140, 0, 0.17), transparent 23%),
-    radial-gradient(circle at 72% 86%, rgba(124, 58, 237, 0.16), transparent 26%);
-  animation: band-shift 18s var(--ease) infinite alternate;
-}
-
+/* Soft panel base */
 .panel {
   isolation: isolate;
-  border-width: 1px;
-  border-color: var(--line-2);
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
   color: var(--ink);
 }
 
@@ -132,134 +122,176 @@ select {
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.5;
-  background-image:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 22px 22px;
+  border-radius: inherit;
+  opacity: 0.3;
+  background-image: radial-gradient(circle, rgba(45, 42, 62, 0.04) 1px, transparent 1px);
+  background-size: 18px 18px;
 }
 
 .hero-panel {
   background: var(--panel);
+  border-radius: 24px;
 }
 
-/* Neo-brutalism 3D: layered offset shadow (teal + purple) with tilt on hover */
-.brutal-3d {
-  border: 1px solid var(--line-2);
-  box-shadow:
-    3px 3px 0 var(--accent-2),
-    7px 7px 0 var(--accent),
-    11px 11px 28px rgba(0, 0, 0, 0.55);
+/* Soft card with subtle tilt */
+.soft-card {
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  box-shadow: 0 2px 12px var(--shadow-color), 0 0 0 0.5px rgba(45, 42, 62, 0.04);
+  transition: transform 280ms var(--ease-bounce), box-shadow 280ms var(--ease-smooth);
+}
+
+.soft-card:hover {
+  transform: translateY(-2px) rotate(0.5deg);
+  box-shadow: 0 6px 24px var(--shadow-color-md), 0 0 0 0.5px rgba(45, 42, 62, 0.06);
+}
+
+/* Wobbly border helper */
+.wobbly {
+  border-radius: 24px 20px 22px 18px;
+}
+
+.wobbly-alt {
+  border-radius: 18px 22px 20px 24px;
+}
+
+/* Tape decoration */
+.tape-top {
+  position: relative;
+}
+
+.tape-top::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 64px;
+  height: 12px;
+  background: rgba(244, 211, 94, 0.5);
+  border-radius: 2px;
+}
+
+/* Sticker decoration */
+.sticker {
+  position: relative;
+}
+
+.sticker::before {
+  content: '★';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  background: var(--yellow);
+  border-radius: 50%;
+  font-size: 10px;
+  box-shadow: 0 2px 6px rgba(244, 211, 94, 0.4);
+  z-index: 5;
+}
+
+/* Button styles */
+.friendly-button {
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  padding: 10px 20px;
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-weight: 700;
+  box-shadow: 0 2px 8px var(--shadow-color);
   transition:
-    transform 260ms var(--ease),
-    box-shadow 260ms var(--ease);
+    transform 180ms var(--ease-bounce),
+    box-shadow 180ms var(--ease-smooth),
+    filter 180ms ease;
 }
 
-.brutal-3d:hover {
-  transform: translate(-3px, -3px);
-  box-shadow:
-    5px 5px 0 var(--accent-2),
-    11px 11px 0 var(--accent),
-    18px 18px 36px rgba(0, 0, 0, 0.6);
+.friendly-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--shadow-color-md);
+  filter: brightness(1.03);
 }
 
-.text-3d {
-  text-shadow:
-    3px 3px 0 var(--accent-2),
-    6px 6px 0 var(--accent);
+.friendly-button:active:not(:disabled) {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 1px 4px var(--shadow-color);
 }
 
-.brutal-button {
-  border: 1px solid var(--line-2);
-  box-shadow: 3px 3px 0 var(--accent);
-  transition:
-    transform 150ms ease,
-    box-shadow 150ms ease,
-    filter 150ms ease;
-}
-
-.brutal-button:hover:not(:disabled) {
-  transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0 var(--accent);
-  filter: saturate(1.08) brightness(1.05);
-}
-
-.brutal-button:active:not(:disabled) {
-  transform: translate(3px, 3px);
-  box-shadow: 0 0 0 var(--accent);
-}
-
-.input-quantum {
+/* Input styles */
+.input-friendly {
   min-height: 44px;
-  border: 1px solid var(--line-2);
-  background: var(--bg-soft);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
   color: var(--ink);
-  box-shadow: 3px 3px 0 var(--accent);
+  box-shadow: inset 0 1px 3px rgba(45, 42, 62, 0.04);
   outline: none;
   transition:
-    background-color 150ms ease,
-    box-shadow 150ms ease,
-    border-color 150ms ease;
+    border-color 200ms ease,
+    box-shadow 200ms ease;
 }
 
-.input-quantum:focus {
-  background: var(--fog);
-  border-color: var(--accent-2);
-  box-shadow: 3px 3px 0 var(--accent-2);
+.input-friendly:focus {
+  border-color: var(--blue-soft);
+  box-shadow: 0 0 0 3px rgba(91, 141, 239, 0.15), inset 0 1px 3px rgba(45, 42, 62, 0.04);
 }
 
-.input-quantum::placeholder {
-  color: rgba(236, 236, 241, 0.4);
+.input-friendly::placeholder {
+  color: var(--ink-muted);
 }
 
-.input-quantum:disabled {
-  color: rgba(236, 236, 241, 0.35);
-  background: #0a0a12;
+.input-friendly:disabled {
+  color: var(--ink-muted);
+  background: #F5F0E3;
 }
 
+/* Compact action panel */
 .compact-action-panel {
   width: 100%;
   max-width: 480px;
   margin-inline: auto;
-  padding: 12px;
+  padding: 14px;
 }
 
-.compact-action-panel .brutal-button {
-  min-height: 38px;
-  box-shadow: 3px 3px 0 var(--ink);
+.compact-action-panel .friendly-button {
+  min-height: 40px;
 }
 
 .compact-action-panel label > span:first-child {
   margin-bottom: 5px;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .compact-input {
   min-height: 40px;
   padding-block: 7px;
-  box-shadow: 3px 3px 0 var(--ink);
 }
 
 .mini-swap-box {
-  border: 3px solid var(--ink);
-  padding: 8px;
-  box-shadow: 3px 3px 0 var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 10px;
+  background: var(--panel);
 }
 
+/* Marker highlight */
 .marker-blue {
   display: inline;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  background:
-    linear-gradient(
-      100deg,
-      transparent 0 5%,
-      rgba(0, 216, 255, 0.56) 5% 91%,
-      transparent 91% 100%
-    );
-  padding: 0 3px;
+  background: linear-gradient(
+    100deg,
+    transparent 0 3%,
+    rgba(91, 141, 239, 0.15) 3% 93%,
+    transparent 93% 100%
+  );
+  padding: 0 4px;
+  border-radius: 3px;
 }
 
+/* Busy overlay */
 .quantum-busy {
   position: fixed;
   inset: 0;
@@ -267,162 +299,418 @@ select {
   display: grid;
   place-items: center;
   padding: 20px;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(25, 227, 194, 0.24), transparent 34%),
-    linear-gradient(135deg, rgba(255, 176, 32, 0.14), rgba(110, 86, 255, 0.12)),
-    var(--paper);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 248, 231, 0.88);
+  backdrop-filter: blur(12px);
 }
 
 .quantum-busy-card {
   width: min(92vw, 420px);
-  border: 3px solid var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: 24px;
   background: var(--panel);
-  padding: 24px;
-  box-shadow: 8px 8px 0 var(--ink);
+  padding: 28px;
+  box-shadow: 0 8px 40px var(--shadow-color-md);
   display: grid;
   justify-items: center;
 }
 
+/* Loading animation (bouncy) */
 .quantum-loader-stage {
   position: relative;
-  width: 190px;
-  height: 190px;
-  transform-style: preserve-3d;
-  perspective: 780px;
-  animation: quantum-loader-tilt 2.7s ease-in-out infinite alternate;
+  width: 120px;
+  height: 120px;
+  animation: loader-bounce 1.6s var(--ease-bounce) infinite alternate;
 }
 
 .quantum-loader-core {
   position: absolute;
-  inset: 58px;
+  inset: 30px;
   display: grid;
   place-items: center;
-  border: 3px solid var(--ink);
-  background: var(--accent-cyan);
-  color: var(--ink);
-  box-shadow:
-    0 0 0 8px rgba(255, 176, 32, 0.4),
-    8px 8px 0 var(--ink);
-  transform: translateZ(48px);
+  border-radius: 50%;
+  background: var(--blue);
+  color: white;
+  box-shadow: 0 4px 20px rgba(91, 141, 239, 0.35);
+  animation: loader-pulse-soft 2s ease-in-out infinite;
 }
 
 .quantum-loader-orbit {
   position: absolute;
-  inset: 28px;
-  border: 3px solid var(--cyan);
+  inset: 10px;
+  border: 2px dashed var(--purple-soft);
   border-radius: 999px;
-  box-shadow: 0 0 22px rgba(0, 216, 255, 0.38);
 }
 
 .quantum-loader-orbit-a {
-  animation: quantum-loader-spin-a 1.4s linear infinite;
+  animation: loader-spin 3s linear infinite;
 }
 
 .quantum-loader-orbit-b {
-  transform: rotateX(70deg) rotateZ(30deg);
-  animation: quantum-loader-spin-b 1.9s linear infinite;
+  transform: rotate(60deg);
+  animation: loader-spin 4s linear infinite reverse;
 }
 
 .quantum-loader-orbit-c {
-  transform: rotateY(68deg) rotateZ(-18deg);
-  animation: quantum-loader-spin-c 2.2s linear infinite;
+  transform: rotate(120deg);
+  animation: loader-spin 5s linear infinite;
 }
 
 .quantum-loader-particle {
   position: absolute;
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--cyan);
-  background: var(--accent-yellow);
-  box-shadow: 3px 3px 0 var(--ink);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .quantum-loader-particle-a {
-  top: 20px;
-  left: 82px;
-  animation: quantum-loader-pulse 0.8s ease-in-out infinite alternate;
+  top: 4px;
+  left: 54px;
+  background: var(--orange);
+  animation: particle-bob 1.2s var(--ease-bounce) infinite alternate;
 }
 
 .quantum-loader-particle-b {
-  right: 16px;
-  top: 92px;
-  background: var(--accent-green);
-  animation: quantum-loader-pulse 1s ease-in-out infinite alternate-reverse;
+  right: 8px;
+  top: 60px;
+  background: var(--green);
+  animation: particle-bob 1.4s var(--ease-bounce) infinite alternate-reverse;
 }
 
 .quantum-loader-particle-c {
-  bottom: 25px;
-  left: 34px;
-  background: var(--accent-purple);
-  animation: quantum-loader-pulse 1.2s ease-in-out infinite alternate;
+  bottom: 8px;
+  left: 22px;
+  background: var(--purple);
+  animation: particle-bob 1.6s var(--ease-bounce) infinite alternate;
 }
 
 .quantum-busy-yellow .quantum-loader-core {
-  background: var(--accent-yellow);
+  background: var(--yellow);
+  color: var(--ink);
 }
 
 .quantum-busy-green .quantum-loader-core {
-  background: var(--accent-green);
+  background: var(--green);
 }
 
 .quantum-busy-purple .quantum-loader-core {
-  background: var(--accent-purple);
+  background: var(--purple);
 }
 
 .compact-action-panel > div:first-child {
-  border-bottom-width: 2px;
+  border-bottom: 1.5px solid var(--line);
   margin-bottom: 10px;
   padding-bottom: 8px;
-  font-size: 1.45rem;
+  font-size: 1.35rem;
 }
 
 .compact-action-panel .border-4 {
-  border-width: 2px;
+  border-width: 1.5px;
 }
 
-.compact-action-panel [class*='shadow-[5px_5px_0_#111]'],
-.compact-action-panel [class*='shadow-[4px_4px_0_#111]'] {
-  box-shadow: 2px 2px 0 var(--ink);
-}
-
-.scanline {
-  pointer-events: none;
+/* Reactor visual area */
+.reactor-bg {
   position: absolute;
   inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(91, 141, 239, 0.1), transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(155, 127, 230, 0.08), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(244, 211, 94, 0.06), transparent 60%),
+    #F8F4EA;
+  border-radius: inherit;
+}
+
+.reactor-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: radial-gradient(circle, rgba(45, 42, 62, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  animation: dot-drift 20s linear infinite;
+}
+
+.reactor-canvas-wrap {
+  position: absolute;
+  inset: 62px 0 74px;
   z-index: 1;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+}
+
+.reactor-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.reactor-fallback {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--blue), var(--green), var(--purple), var(--orange), var(--blue));
+  box-shadow: 0 4px 20px rgba(91, 141, 239, 0.3);
+  animation: fallback-spin 6s linear infinite;
+  opacity: 0.7;
+}
+
+.reactor-hud-line {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--blue-soft);
+  opacity: 0.4;
+}
+
+.reactor-hud-a {
+  top: 16%;
+  animation: hud-slide 6s var(--ease-smooth) infinite alternate;
+}
+
+.reactor-hud-b {
+  bottom: 12%;
+  animation: hud-slide 7s var(--ease-smooth) infinite alternate-reverse;
+}
+
+.signal-stream {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(91, 141, 239, 0.12),
+    rgba(155, 127, 230, 0.12),
+    transparent
+  );
+  transform: translateX(-110%);
+  animation: signal-sweep 3s linear infinite;
+  border-radius: inherit;
+}
+
+/* Route cells */
+.route-cell {
+  position: relative;
+  min-height: 122px;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  padding: 12px;
+  transition: transform 280ms var(--ease-bounce), box-shadow 280ms var(--ease-smooth);
+}
+
+.route-cell:hover {
+  transform: translateY(-2px) rotate(0.3deg);
+  box-shadow: 0 4px 16px var(--shadow-color-md);
+}
+
+.route-cell-active {
+  background: linear-gradient(135deg, rgba(91, 141, 239, 0.08), transparent 60%), var(--panel);
+  border-color: var(--blue-soft);
+  box-shadow: 0 4px 16px rgba(91, 141, 239, 0.12);
+}
+
+.matrix-marquee {
+  display: inline-block;
+  min-width: 100%;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: matrix-marquee 18s linear infinite;
+}
+
+.matrix-step {
+  position: relative;
   overflow: hidden;
 }
 
-.scanline::after {
+.matrix-step::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  top: -28%;
-  height: 38%;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(0, 229, 255, 0.26),
-    transparent
-  );
-  animation: scan 2.4s linear infinite;
+  inset: 0;
+  background: linear-gradient(115deg, transparent, rgba(155, 127, 230, 0.08), transparent);
+  transform: translateX(-110%);
+  animation: signal-sweep 4s linear infinite;
+  animation-delay: var(--route-delay, 0ms);
+  border-radius: inherit;
 }
 
+/* Dashboard scrollbar */
+.dashboard-panel {
+  scrollbar-color: var(--blue-soft) var(--paper);
+  scrollbar-width: thin;
+}
+
+.dashboard-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dashboard-panel::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--blue-soft);
+}
+
+/* Signal rail */
+.signal-rail {
+  min-height: 390px;
+}
+
+.signal-rail-grid {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(91, 141, 239, 0.06), transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(155, 127, 230, 0.05), transparent 50%),
+    #F8F4EA;
+}
+
+.signal-rail-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: radial-gradient(circle, rgba(45, 42, 62, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: dot-drift 14s linear infinite;
+}
+
+.signal-ring {
+  position: relative;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--blue), var(--green), var(--purple), var(--orange), var(--blue));
+  overflow: hidden;
+  opacity: 0.7;
+}
+
+.signal-ring::before {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  background: var(--panel);
+  box-shadow: inset 0 0 0 6px var(--blue-soft);
+  animation: signal-core 5s var(--ease-smooth) infinite alternate;
+}
+
+.signal-ring span,
+.signal-ring i,
+.signal-ring b {
+  position: absolute;
+  inset: 50%;
+  width: 80px;
+  height: 6px;
+  margin: -3px 0 0 -40px;
+  border-radius: 3px;
+  background: var(--blue);
+  animation: rail-orbit 4s linear infinite;
+}
+
+.signal-ring i {
+  background: var(--pink);
+  animation-delay: -1.2s;
+}
+
+.signal-ring b {
+  background: var(--yellow);
+  animation-delay: -2.4s;
+}
+
+.signal-lane {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+  padding: 8px 12px;
+  transition: transform 200ms var(--ease-bounce);
+}
+
+.signal-lane:hover {
+  transform: translateX(2px);
+}
+
+.signal-lane::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(91, 141, 239, 0.08), transparent);
+  transform: translateX(-110%);
+  animation: signal-sweep 4s linear infinite;
+  animation-delay: var(--lane-delay, 0ms);
+}
+
+.signal-lane-live {
+  background: rgba(91, 141, 239, 0.06);
+  border-color: var(--blue-soft);
+}
+
+.signal-meter {
+  display: grid;
+  grid-template-columns: auto repeat(4, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.signal-meter span {
+  height: 18px;
+  border-radius: 4px;
+  background: var(--blue);
+  transform-origin: bottom;
+  animation: meter-kick 2s var(--ease-bounce) infinite alternate;
+}
+
+.signal-meter span:nth-child(3) {
+  background: var(--green);
+  animation-delay: 120ms;
+}
+
+.signal-meter span:nth-child(4) {
+  background: var(--yellow);
+  animation-delay: 240ms;
+}
+
+.signal-meter span:nth-child(5) {
+  background: var(--purple);
+  animation-delay: 360ms;
+}
+
+/* Reduced-motion fallback */
+.reduced-motion-fallback {
+  animation: none !important;
+  background: conic-gradient(from 0deg, var(--blue), var(--green), var(--purple), var(--orange), var(--blue));
+  opacity: 0.5;
+}
+
+/* Intro scan area */
+.intro-scan {
+  background: linear-gradient(135deg, rgba(91, 141, 239, 0.06) 0 40%, transparent 40%), var(--panel);
+  border-radius: 24px;
+}
+
+/* Paint core (logo area) */
 .quantum-stage {
   position: absolute;
   inset: 78px 18px 64px;
   display: grid;
   place-items: center;
-  perspective: 900px;
 }
 
 .paint-core {
   position: relative;
   width: min(58vw, 280px);
   aspect-ratio: 1;
-  animation: paint-float 5.6s var(--ease) infinite alternate;
+  animation: float-gentle 4s var(--ease-smooth) infinite alternate;
 }
 
 .paint-core span,
@@ -430,8 +718,8 @@ select {
 .paint-core b {
   position: absolute;
   display: block;
-  border: 4px solid var(--ink);
-  box-shadow: 8px 8px 0 var(--ink);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .paint-core span {
@@ -454,47 +742,48 @@ select {
 
 .paint-dot {
   position: absolute;
-  border: 4px solid var(--ink);
+  border-radius: 50%;
   background: var(--green);
-  box-shadow: 5px 5px 0 var(--ink);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .paint-dot-a {
   left: 10%;
   bottom: 14%;
-  width: 46px;
-  height: 46px;
-  animation: dot-hop 3.8s var(--ease) infinite alternate;
+  width: 40px;
+  height: 40px;
+  animation: dot-bob 3s var(--ease-bounce) infinite alternate;
 }
 
 .paint-dot-b {
   right: 7%;
   top: 13%;
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   background: var(--orange);
-  animation: dot-hop 4.3s var(--ease) infinite alternate-reverse;
+  animation: dot-bob 3.5s var(--ease-bounce) infinite alternate-reverse;
 }
 
+/* Logo */
 .quantum-logo-3d {
   position: relative;
   width: var(--logo-size, 52px);
   aspect-ratio: 1;
-  animation: logo-bop 4.8s var(--ease) infinite alternate;
+  animation: logo-wobble 3s var(--ease-smooth) infinite alternate;
 }
 
 .quantum-logo-3d span {
   position: absolute;
   display: grid;
   place-items: center;
-  border: 4px solid var(--ink);
-  background: var(--yellow);
-  color: var(--ink);
-  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--blue);
+  color: white;
+  font-family: 'Nunito', system-ui, sans-serif;
   font-size: calc(var(--logo-size, 52px) * 0.35);
   font-weight: 900;
   line-height: 1;
-  box-shadow: 7px 7px 0 var(--ink);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  box-shadow: 0 4px 16px rgba(91, 141, 239, 0.3);
 }
 
 .quantum-logo-3d span:nth-child(1) {
@@ -505,483 +794,114 @@ select {
 .quantum-logo-3d span:nth-child(2) {
   inset: 25% -2% 25% 4%;
   background: var(--pink);
+  box-shadow: 0 4px 16px rgba(232, 141, 170, 0.3);
   transform: rotate(22deg);
 }
 
 .quantum-logo-3d span:nth-child(3) {
   inset: 5% 40%;
   background: var(--cyan);
+  box-shadow: 0 4px 16px rgba(92, 203, 160, 0.3);
   transform: rotate(-24deg);
 }
 
-.intro-scan {
-  background:
-    linear-gradient(135deg, rgba(0, 229, 255, 0.28) 0 36%, transparent 36%),
-    var(--paper);
-}
-
-.reactor-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(0, 229, 255, 0.18), transparent 34%),
-    linear-gradient(228deg, rgba(255, 77, 141, 0.2), transparent 42%),
-    radial-gradient(circle at 50% 42%, rgba(255, 214, 10, 0.22), transparent 34%),
-    #111111;
-}
-
-.reactor-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
-  background-size: 42px 42px;
-  animation: reactor-grid 13s linear infinite;
-}
-
-.reactor-canvas-wrap {
-  position: absolute;
-  inset: 62px 0 74px;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.reactor-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.reactor-fallback {
-  position: absolute;
-  inset: 18%;
-  border: 4px solid #ffffff;
-  background:
-    conic-gradient(from 0deg, var(--cyan), var(--yellow), var(--pink), var(--green), var(--cyan));
-  box-shadow: 10px 10px 0 var(--cyan);
-  animation: fallback-reactor 3.4s linear infinite;
-}
-
-.reactor-hud-line {
-  position: absolute;
-  left: 12%;
-  right: 12%;
-  height: 4px;
-  background: #ffffff;
-  box-shadow:
-    0 0 0 4px #111111,
-    0 0 22px rgba(0, 229, 255, 0.6);
-}
-
-.reactor-hud-a {
-  top: 16%;
-  animation: hud-slide 4.5s var(--ease) infinite alternate;
-}
-
-.reactor-hud-b {
-  bottom: 12%;
-  animation: hud-slide 5.2s var(--ease) infinite alternate-reverse;
-}
-
-.signal-stream {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0, 229, 255, 0.34),
-    rgba(255, 214, 10, 0.34),
-    transparent
-  );
-  transform: translateX(-110%);
-  animation: signal-sweep 2.4s linear infinite;
-}
-
-.route-cell {
-  position: relative;
-  min-height: 122px;
-  overflow: hidden;
-  border: 4px solid var(--ink);
-  background:
-    linear-gradient(135deg, rgba(0, 229, 255, 0.18), transparent 45%),
-    var(--panel);
-  padding: 10px;
-  box-shadow: 5px 5px 0 var(--ink);
-  isolation: isolate;
-}
-
-.route-cell::before {
-  content: '';
-  position: absolute;
-  inset: auto -20% 12px -20%;
-  height: 12px;
-  border-block: 4px solid var(--ink);
-  background: repeating-linear-gradient(
-    90deg,
-    var(--yellow) 0 28px,
-    var(--cyan) 28px 56px,
-    var(--pink) 56px 84px,
-    var(--green) 84px 112px
-  );
-  animation: matrix-route 2.8s linear infinite;
-  animation-delay: var(--route-delay, 0ms);
-}
-
-.route-cell-active {
-  background:
-    linear-gradient(135deg, rgba(255, 214, 10, 0.5), transparent 42%),
-    linear-gradient(230deg, rgba(255, 77, 141, 0.18), transparent 44%),
-    var(--panel);
-  box-shadow: 7px 7px 0 var(--cyan);
-}
-
-.matrix-marquee {
+/* Status dot */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   display: inline-block;
-  min-width: 100%;
-  padding-left: 100%;
-  white-space: nowrap;
-  animation: matrix-marquee 14s linear infinite;
 }
 
-.matrix-step {
-  position: relative;
-  overflow: hidden;
-}
-
-.matrix-step::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent, rgba(138, 92, 246, 0.18), transparent);
-  transform: translateX(-110%);
-  animation: signal-sweep 3s linear infinite;
-  animation-delay: var(--route-delay, 0ms);
-}
-
-.dashboard-panel {
-  scrollbar-color: var(--cyan) var(--ink);
-  scrollbar-width: thin;
-}
-
-.dashboard-panel::-webkit-scrollbar {
-  width: 12px;
-}
-
-.dashboard-panel::-webkit-scrollbar-track {
-  background: var(--ink);
-}
-
-.dashboard-panel::-webkit-scrollbar-thumb {
-  border: 3px solid var(--ink);
-  background: var(--cyan);
-}
-
-.signal-rail {
-  min-height: 390px;
-}
-
-.signal-rail-grid {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(120deg, rgba(0, 229, 255, 0.22), transparent 38%),
-    linear-gradient(260deg, rgba(255, 77, 141, 0.2), transparent 44%),
-    radial-gradient(circle at 72% 38%, rgba(255, 214, 10, 0.26), transparent 26%),
-    #111111;
-}
-
-.signal-rail-grid::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
-  background-size: 26px 26px;
-  animation: reactor-grid 9s linear infinite;
-}
-
-.signal-ring {
-  position: relative;
-  height: 132px;
-  border: 4px solid #ffffff;
-  background:
-    conic-gradient(from 0deg, var(--cyan), var(--yellow), var(--pink), var(--green), var(--cyan));
-  box-shadow: 6px 6px 0 #ffffff;
-  overflow: hidden;
-}
-
-.signal-ring::before {
-  content: '';
-  position: absolute;
-  inset: 22px;
-  border: 4px solid var(--ink);
-  background: var(--panel);
-  box-shadow: inset 0 0 0 10px var(--yellow);
-  animation: signal-core 4s var(--ease) infinite alternate;
-}
-
-.signal-ring span,
-.signal-ring i,
-.signal-ring b {
-  position: absolute;
-  inset: 50%;
-  width: 116px;
-  height: 10px;
-  margin: -5px 0 0 -58px;
-  border: 3px solid var(--ink);
-  background: var(--cyan);
-  animation: rail-orbit 3.8s linear infinite;
-}
-
-.signal-ring i {
-  background: var(--pink);
-  animation-delay: -1.2s;
-}
-
-.signal-ring b {
-  background: var(--yellow);
-  animation-delay: -2.4s;
-}
-
-.signal-lane {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  overflow: hidden;
-  border: 4px solid #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 8px;
-  box-shadow: 4px 4px 0 #ffffff;
-}
-
-.signal-lane::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
-  transform: translateX(-110%);
-  animation: signal-sweep 3.2s linear infinite;
-  animation-delay: var(--lane-delay, 0ms);
-}
-
-.signal-lane-live {
-  background: rgba(255, 214, 10, 0.28);
-}
-
-.signal-meter {
-  display: grid;
-  grid-template-columns: auto repeat(4, 1fr);
-  align-items: center;
-  gap: 8px;
-}
-
-.signal-meter span {
-  height: 22px;
-  border: 3px solid var(--ink);
-  background: var(--cyan);
-  transform-origin: bottom;
-  animation: meter-kick 1.8s var(--ease) infinite alternate;
-}
-
-.signal-meter span:nth-child(3) {
+.status-dot-green {
   background: var(--green);
-  animation-delay: 120ms;
+  box-shadow: 0 0 8px rgba(92, 203, 160, 0.4);
 }
 
-.signal-meter span:nth-child(4) {
+.status-dot-red {
+  background: var(--red);
+  box-shadow: 0 0 8px rgba(239, 123, 123, 0.4);
+}
+
+.status-dot-yellow {
   background: var(--yellow);
-  animation-delay: 240ms;
+  box-shadow: 0 0 8px rgba(244, 211, 94, 0.4);
 }
 
-.signal-meter span:nth-child(5) {
-  background: var(--pink);
-  animation-delay: 360ms;
+/* Animations */
+@keyframes loader-bounce {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-6px) scale(1.03); }
 }
 
-/* Reduced-motion fallback: static gradient instead of Three.js */
-.reduced-motion-fallback {
-  animation: none !important;
-  background:
-    conic-gradient(from 0deg, var(--cyan), var(--yellow), var(--pink), var(--green), var(--cyan));
-  opacity: 0.7;
+@keyframes loader-pulse-soft {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.08); opacity: 1; }
 }
 
-@keyframes mesh-drift {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 100% 100%;
-  }
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
 }
 
-@keyframes band-shift {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(2%, -2%, 0);
-  }
+@keyframes particle-bob {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-8px) scale(1.15); }
 }
 
-@keyframes scan {
-  0% {
-    transform: translateY(-110%);
-  }
-  100% {
-    transform: translateY(110%);
-  }
+@keyframes dot-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 48px 24px; }
 }
 
-@keyframes paint-float {
-  0% {
-    transform: rotate(-2deg) translateY(0);
-  }
-  100% {
-    transform: rotate(2deg) translateY(-12px);
-  }
+@keyframes float-gentle {
+  0% { transform: rotate(-1deg) translateY(0); }
+  100% { transform: rotate(1deg) translateY(-8px); }
 }
 
-@keyframes dot-hop {
-  0% {
-    transform: translateY(0) rotate(-8deg);
-  }
-  100% {
-    transform: translateY(-18px) rotate(6deg);
-  }
+@keyframes dot-bob {
+  0% { transform: translateY(0) rotate(-4deg); }
+  100% { transform: translateY(-10px) rotate(4deg); }
 }
 
-@keyframes logo-bop {
-  0% {
-    transform: rotate(-2deg) translateY(0);
-  }
-  100% {
-    transform: rotate(2deg) translateY(-5px);
-  }
+@keyframes logo-wobble {
+  0% { transform: rotate(-1deg) translateY(0); }
+  100% { transform: rotate(1deg) translateY(-4px); }
 }
 
-@keyframes reactor-grid {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 84px 42px;
-  }
-}
-
-@keyframes fallback-reactor {
-  0% {
-    transform: rotate(0deg) scale(0.94);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.02);
-  }
-  100% {
-    transform: rotate(360deg) scale(0.94);
-  }
+@keyframes fallback-spin {
+  0% { transform: rotate(0deg) scale(0.96); }
+  50% { transform: rotate(180deg) scale(1.02); }
+  100% { transform: rotate(360deg) scale(0.96); }
 }
 
 @keyframes hud-slide {
-  0% {
-    transform: translateX(-5%) skewX(-10deg);
-  }
-  100% {
-    transform: translateX(5%) skewX(10deg);
-  }
+  0% { transform: translateX(-4%); opacity: 0.3; }
+  100% { transform: translateX(4%); opacity: 0.5; }
 }
 
 @keyframes signal-sweep {
-  0% {
-    transform: translateX(-110%);
-  }
-  100% {
-    transform: translateX(110%);
-  }
-}
-
-@keyframes matrix-route {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(112px);
-  }
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(110%); }
 }
 
 @keyframes matrix-marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 @keyframes signal-core {
-  0% {
-    transform: rotate(-5deg) scale(0.96);
-  }
-  100% {
-    transform: rotate(5deg) scale(1.04);
-  }
+  0% { transform: rotate(-3deg) scale(0.98); }
+  100% { transform: rotate(3deg) scale(1.02); }
 }
 
 @keyframes rail-orbit {
-  0% {
-    transform: rotate(0deg) translateX(0);
-  }
-  100% {
-    transform: rotate(360deg) translateX(0);
-  }
+  0% { transform: rotate(0deg) translateX(0); }
+  100% { transform: rotate(360deg) translateX(0); }
 }
 
 @keyframes meter-kick {
-  0% {
-    transform: scaleY(0.42);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
-
-@keyframes quantum-loader-tilt {
-  from {
-    transform: rotateX(56deg) rotateZ(-14deg);
-  }
-  to {
-    transform: rotateX(62deg) rotateZ(18deg);
-  }
-}
-
-@keyframes quantum-loader-spin-a {
-  to {
-    transform: rotateZ(360deg);
-  }
-}
-
-@keyframes quantum-loader-spin-b {
-  to {
-    transform: rotateX(70deg) rotateZ(390deg);
-  }
-}
-
-@keyframes quantum-loader-spin-c {
-  to {
-    transform: rotateY(68deg) rotateZ(342deg);
-  }
-}
-
-@keyframes quantum-loader-pulse {
-  from {
-    transform: translateZ(0) scale(0.82);
-  }
-  to {
-    transform: translateZ(44px) scale(1.12);
-  }
+  0% { transform: scaleY(0.5); }
+  100% { transform: scaleY(1); }
 }
 
 @media (min-width: 1280px) {
@@ -1011,14 +931,12 @@ select {
     background-size: 100% 100% !important;
   }
 
-  .cyber-band,
   .grid-noise {
     animation: none !important;
   }
 
   .matrix-marquee,
   .matrix-step::after,
-  .route-cell::before,
   .signal-stream,
   .signal-lane::after,
   .signal-ring span,
@@ -1034,8 +952,7 @@ select {
   .reactor-fallback,
   .paint-core,
   .paint-dot,
-  .quantum-logo-3d,
-  .scanline::after {
+  .quantum-logo-3d {
     animation: none !important;
   }
 

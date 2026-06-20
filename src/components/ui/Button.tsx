@@ -15,14 +15,14 @@ export function Button({
   return (
     <button
       className={clsx(
-        'brutal-button inline-flex min-h-10 items-center justify-center gap-2 px-3 py-2 font-display text-base uppercase leading-none disabled:cursor-not-allowed disabled:opacity-50 md:text-lg',
-        variant === 'primary' && 'bg-quantum-yellow text-[#07070c]',
-        variant === 'cyan' && 'bg-quantum-cyan text-[#07070c]',
-        variant === 'green' && 'bg-quantum-green text-[#07070c]',
-        variant === 'orange' && 'bg-quantum-orange text-[#07070c]',
+        'friendly-button inline-flex min-h-10 items-center justify-center gap-2 px-4 py-2.5 font-display text-sm uppercase leading-none disabled:cursor-not-allowed disabled:opacity-40 md:text-base',
+        variant === 'primary' && 'bg-quantum-yellow text-quantum-ink',
+        variant === 'cyan' && 'bg-quantum-cyan text-white',
+        variant === 'green' && 'bg-quantum-green text-white',
+        variant === 'orange' && 'bg-quantum-orange text-white',
         variant === 'purple' && 'bg-quantum-purple text-white',
-        variant === 'red' && 'bg-quantum-red text-[#07070c]',
-        variant === 'ghost' && 'bg-quantum-panel text-quantum-ink',
+        variant === 'red' && 'bg-quantum-red text-white',
+        variant === 'ghost' && 'bg-white/60 text-quantum-ink border-quantum-ink/10 hover:bg-white',
         className
       )}
       {...props}

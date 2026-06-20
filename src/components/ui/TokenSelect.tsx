@@ -14,13 +14,13 @@ export function TokenSelect({ label, value, onChange }: TokenSelectProps) {
 
   return (
     <label className="block">
-      <span className="mb-2 block font-display text-xl uppercase leading-none">
+      <span className="mb-2 block font-display text-base font-semibold text-quantum-ink">
         {label}
       </span>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value as Address | '')}
-        className="input-quantum w-full px-3 py-3 font-mono text-sm"
+        className="input-friendly w-full px-4 py-3 font-mono text-sm"
       >
         <option value="">SELECT TOKEN</option>
         {tokens.map((token) => (
