@@ -176,7 +176,7 @@ function PrivyBridge({ children }: { children: ReactNode }) {
     }
     if (!authenticated) {
       login({
-        loginMethods: ['email', 'wallet', 'google', 'twitter', 'discord']
+        loginMethods: ['email', 'wallet', 'google', 'twitter', 'discord', 'github', 'apple', 'telegram']
       })
       return
     }
@@ -239,10 +239,10 @@ export function PrivyAppProvider({ children }: { children: ReactNode }) {
       clientId={PRIVY_CLIENT_ID || undefined}
       config={{
         appearance: {
-          theme: '#0f1428',
-          accentColor: '#00d8ff',
+          theme: 'light',
+          accentColor: '#5B8DEF',
           landingHeader: 'Arc Quantum Lab',
-          loginMessage: 'Email, Google, X, Discord, or wallet login.',
+          loginMessage: 'Email, Google, X, Discord, GitHub, Apple, Telegram, or wallet login.',
           showWalletLoginFirst: false,
           walletList: [
             'rabby_wallet',
@@ -260,7 +260,7 @@ export function PrivyAppProvider({ children }: { children: ReactNode }) {
             createOnLogin: 'users-without-wallets'
           }
         },
-        loginMethods: ['email', 'wallet', 'google', 'twitter', 'discord'],
+        loginMethods: ['email', 'wallet', 'google', 'twitter', 'discord', 'github', 'apple', 'telegram'],
         supportedChains: [arcTestnet, sepolia]
       }}
     >
