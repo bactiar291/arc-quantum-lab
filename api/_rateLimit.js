@@ -4,6 +4,12 @@ const MAX_REQUESTS = 30
 const store = new Map()
 
 function clientIp(request) {
+  // SECURITY: Use Vercel's trusted header first, fall back to x-forwarded-for
+  const vff = Array.isArray(request.headers['x-vercel-forwarded-for'])
+    ? request.headers['x-vercel-forwarded-for'][0]
+    : request.headers['x-vercel-forwarded-for']
+  if (vff) return vff.split(',')[0]?.trim()
+
   const header = Array.isArray(request.headers['x-forwarded-for'])
     ? request.headers['x-forwarded-for'][0]
     : request.headers['x-forwarded-for']

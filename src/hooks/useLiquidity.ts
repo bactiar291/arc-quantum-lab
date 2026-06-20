@@ -3,7 +3,6 @@ import { isAddress } from 'viem'
 
 import {
   erc20Abi,
-  maxUint256,
   quantumRouterAbi
 } from '../lib/contracts'
 import { useAmmConfig } from './useAmm'
@@ -25,12 +24,12 @@ export function useLiquidity() {
   const { routerAddress } = useAmmConfig()
   const track = useTrackedTx()
 
-  const approveRouter = async (token: Address) => {
+  const approveRouter = async (token: Address, amount?: bigint) => {
     if (!routerAddress) throw new Error('Router address missing. Run Setup AMM first.')
     const data = encodeFunctionData({
       abi: erc20Abi,
       functionName: 'approve',
-      args: [routerAddress, maxUint256]
+      args: [routerAddress, amount ?? 0n]
     })
     return track('approve', 'Approve router for liquidity', async () => {
       const { hash } = await sendSessionTransaction({ to: token, data })

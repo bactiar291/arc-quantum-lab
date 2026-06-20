@@ -71,6 +71,10 @@ interface AppState {
 }
 
 export const useAppStore = create<AppState>()(
+  // SECURITY WARNING: persisted state is stored in localStorage and can be
+  // tampered with by the user or any script running in the same origin.
+  // Never treat persisted addresses (ammFactoryAddress, ammRouterAddress)
+  // as authoritative — always validate them with isAddress() before use.
   persist(
     (set) => ({
       userAddress: null,

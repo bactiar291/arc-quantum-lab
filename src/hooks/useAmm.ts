@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import type { Address } from 'viem'
+import { isAddress } from 'viem'
 import { useAccount, useWalletClient } from 'wagmi'
 
 import { ARC_CHAIN_ID, arcPublicClient } from '../lib/arc'
@@ -17,9 +18,15 @@ export function useAmmConfig() {
   const storedFactory = useAppStore((state) => state.ammFactoryAddress)
   const storedRouter = useAppStore((state) => state.ammRouterAddress)
 
+  // SECURITY: Validate addresses before using them
+  const rawFactory = storedFactory ?? envQuantumFactoryAddress
+  const rawRouter = storedRouter ?? envQuantumRouterAddress
+  const factoryAddress = rawFactory && isAddress(rawFactory) ? rawFactory : undefined
+  const routerAddress = rawRouter && isAddress(rawRouter) ? rawRouter : undefined
+
   return {
-    factoryAddress: storedFactory ?? envQuantumFactoryAddress,
-    routerAddress: storedRouter ?? envQuantumRouterAddress,
+    factoryAddress,
+    routerAddress,
     isRuntimeConfig: Boolean(storedFactory && storedRouter)
   }
 }

@@ -20,7 +20,9 @@ function getPrivyClient() {
 
 export default async function handler(request, response) {
   response.setHeader('cache-control', 'no-store')
-  response.setHeader('Access-Control-Allow-Origin', '*')
+  // SECURITY: Restrict CORS to app origin (fallback to * for local dev)
+  const origin = process.env.APP_ORIGIN || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '*')
+  response.setHeader('Access-Control-Allow-Origin', origin)
   response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
   response.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
   response.setHeader('X-Content-Type-Options', 'nosniff')
@@ -65,9 +67,11 @@ export default async function handler(request, response) {
       }
     })
   } catch (error) {
+    // SECURITY: Log full error server-side, return generic message to client
+    console.error('[privy/verify] Token verification failed:', error)
     response.status(401).json({
       ok: false,
-      error: error instanceof Error ? error.message : 'Privy token invalid'
+      error: 'Authentication failed'
     })
   }
 }

@@ -24,6 +24,7 @@ export function useSend() {
   const track = useTrackedTx()
 
   const sendToken = async (params: SendParams) => {
+    if (!isAddress(params.token)) throw new Error('Token address invalid.')
     if (!isAddress(params.to)) throw new Error('Recipient address invalid.')
     const amount = parseUnits(params.amount || '0', params.decimals)
     if (amount <= 0n) throw new Error('Amount must be greater than zero.')
