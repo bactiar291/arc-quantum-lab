@@ -18,6 +18,7 @@ import {
   clearStoredSession,
   decryptSessionKey,
   encryptSessionKey,
+  generateSessionEntropy,
   readStoredSession,
   saveStoredSession
 } from '../lib/session'
@@ -143,6 +144,7 @@ export function useSession() {
       sessionAddress: account.address,
       smartAccountAddress: smartAccount,
       encryptedKey,
+      sessionEntropy: generateSessionEntropy(),
       expiresAt,
       signature: null,
       createdAt: Date.now()
