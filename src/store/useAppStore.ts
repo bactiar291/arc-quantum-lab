@@ -45,7 +45,7 @@ interface AppState {
   tokenBalances: Record<string, string>
   ammFactoryAddress: Address | null
   ammRouterAddress: Address | null
-  pendingTx: Hex | null
+  pendingTxs: Set<Hex>
   txHistory: Transaction[]
   activeTab: AppTab
   setWallet: (address: Address | null, isConnected: boolean) => void
@@ -62,7 +62,8 @@ interface AppState {
   removeToken: (address: Address) => void
   setAmmConfig: (factory: Address | null, router: Address | null) => void
   resetAmmConfig: () => void
-  setPendingTx: (hash: Hex | null) => void
+  addPendingTx: (hash: Hex) => void
+  removePendingTx: (hash: Hex) => void
   addTx: (tx: Transaction) => void
   removeTx: (id: string) => void
   clearTxHistory: () => void
@@ -83,7 +84,7 @@ export const useAppStore = create<AppState>()(
       tokenBalances: {},
       ammFactoryAddress: null,
       ammRouterAddress: null,
-      pendingTx: null,
+      pendingTxs: new Set<Hex>(),
       txHistory: [],
       activeTab: 'swap',
       setWallet: (address, isConnected) => set({ userAddress: address, isConnected }),
@@ -126,7 +127,18 @@ export const useAppStore = create<AppState>()(
       setAmmConfig: (ammFactoryAddress, ammRouterAddress) =>
         set({ ammFactoryAddress, ammRouterAddress }),
       resetAmmConfig: () => set({ ammFactoryAddress: null, ammRouterAddress: null }),
-      setPendingTx: (pendingTx) => set({ pendingTx }),
+      addPendingTx: (hash) =>
+        set((state) => {
+          const next = new Set(state.pendingTxs)
+          next.add(hash)
+          return { pendingTxs: next }
+        }),
+      removePendingTx: (hash) =>
+        set((state) => {
+          const next = new Set(state.pendingTxs)
+          next.delete(hash)
+          return { pendingTxs: next }
+        }),
       addTx: (tx) =>
         set((state) => ({
           txHistory: [tx, ...state.txHistory].slice(0, 30)

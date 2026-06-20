@@ -1,4 +1,5 @@
 import { encodeFunctionData, parseUnits, type Address } from 'viem'
+import { isAddress } from 'viem'
 
 import {
   erc20Abi,
@@ -40,8 +41,11 @@ export function useLiquidity() {
   const addLiquidity = async (params: LiquidityParams) => {
     if (!routerAddress) throw new Error('Router address missing. Run Setup AMM first.')
     if (!smartAccountAddress) throw new Error('Smart account missing.')
+    if (!isAddress(params.tokenA)) throw new Error('Invalid tokenA address.')
+    if (!isAddress(params.tokenB)) throw new Error('Invalid tokenB address.')
     const router = routerAddress
     const recipient = params.recipient ?? smartAccountAddress
+    if (!isAddress(recipient)) throw new Error('Invalid recipient address.')
 
     const amountA = parseUnits(params.amountA || '0', params.decimalsA)
     const amountB = parseUnits(params.amountB || '0', params.decimalsB)

@@ -1,9 +1,12 @@
 import { Panel } from './ui/Panel'
 
+const prefersReducedMotion =
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 export function QuantumVisual() {
   return (
     <Panel className="min-h-[300px] animate-reveal overflow-hidden bg-quantum-yellow" shadow="red">
-      <div className="scanline" />
+      <div className="scanline" style={prefersReducedMotion ? { animation: 'none' } : undefined} />
       <div className="relative z-10 flex h-full min-h-[260px] flex-col justify-between">
         <div>
           <div className="font-display text-5xl leading-none text-quantum-ink">

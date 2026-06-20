@@ -5,7 +5,8 @@ import { createTx, useAppStore, type TxKind, type TxStatus } from '../store/useA
 export function useTrackedTx() {
   const addTx = useAppStore((state) => state.addTx)
   const updateTx = useAppStore((state) => state.updateTx)
-  const setPendingTx = useAppStore((state) => state.setPendingTx)
+  const addPendingTx = useAppStore((state) => state.addPendingTx)
+  const removePendingTx = useAppStore((state) => state.removePendingTx)
 
   return async function track<T>(
     kind: TxKind,
@@ -14,22 +15,26 @@ export function useTrackedTx() {
   ) {
     const tx = createTx(kind, summary)
     addTx(tx)
+    let trackedHash: Hex | undefined
     try {
       const result = await action()
-      if (result.hash) setPendingTx(result.hash)
+      if (result.hash) {
+        trackedHash = result.hash
+        addPendingTx(result.hash)
+      }
       updateTx(tx.id, {
         hash: result.hash,
         status: result.status ?? 'success',
         error: result.error
       })
-      setPendingTx(null)
+      if (trackedHash) removePendingTx(trackedHash)
       return result
     } catch (error) {
       updateTx(tx.id, {
         status: 'error',
         error: error instanceof Error ? error.message : String(error)
       })
-      setPendingTx(null)
+      if (trackedHash) removePendingTx(trackedHash)
       throw error
     }
   }

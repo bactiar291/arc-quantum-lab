@@ -106,10 +106,15 @@ function PrivyBridge({ children }: { children: ReactNode }) {
     if (!authenticated) return null
     const token = await getAccessToken()
     setAccessToken(token)
-    if (token) {
-      sessionStorage.setItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY, token)
-    } else {
-      sessionStorage.removeItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY)
+    // Store token in sessionStorage for the polyfills fetch interceptor (Circle API proxy auth)
+    try {
+      if (token) {
+        sessionStorage.setItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY, token)
+      } else {
+        sessionStorage.removeItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY)
+      }
+    } catch {
+      // sessionStorage may be unavailable
     }
     return token
   }, [authenticated, getAccessToken])
@@ -120,17 +125,19 @@ function PrivyBridge({ children }: { children: ReactNode }) {
       setAccessToken(null)
       setServerVerified(null)
       setServerAuthError(null)
-      sessionStorage.removeItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY)
+      try { sessionStorage.removeItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY) } catch { /* */ }
       return
     }
     void getAccessToken().then((token) => {
       if (!alive) return
       setAccessToken(token)
-      if (token) {
-        sessionStorage.setItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY, token)
-      } else {
-        sessionStorage.removeItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY)
-      }
+      try {
+        if (token) {
+          sessionStorage.setItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY, token)
+        } else {
+          sessionStorage.removeItem(PRIVY_ACCESS_TOKEN_STORAGE_KEY)
+        }
+      } catch { /* */ }
     })
     return () => {
       alive = false
@@ -165,7 +172,7 @@ function PrivyBridge({ children }: { children: ReactNode }) {
 
   const connect = useCallback(async () => {
     if (!ready) {
-      throw new Error('Privy auth masih loading. Tunggu sebentar lalu klik Login lagi.')
+      throw new Error('Privy auth is still loading. Please wait a moment and click Login again.')
     }
     if (!authenticated) {
       login({
@@ -246,7 +253,7 @@ export function PrivyAppProvider({ children }: { children: ReactNode }) {
             'wallet_connect'
           ]
         },
-        captchaEnabled: false,
+        captchaEnabled: true,
         defaultChain: arcTestnet,
         embeddedWallets: {
           ethereum: {

@@ -6,7 +6,7 @@ export default {
     extend: {
       colors: {
         quantum: {
-          black: '#ECECF1',
+          black: '#ECECF1', // NOTE: despite the name, this is actually a light/ink color (not black)
           paper: '#07070C',
           panel: '#12101F',
           ink: '#ECECF1',

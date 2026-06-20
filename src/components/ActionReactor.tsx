@@ -77,14 +77,14 @@ function statusTone(status: ReactorStatus) {
 }
 
 function makeCoreGeometry(mode: ReactorTab) {
-  if (mode === 'swap') return new THREE.TorusKnotGeometry(0.78, 0.22, 150, 18, 2, 3)
-  if (mode === 'deploy') return new THREE.IcosahedronGeometry(0.98, 2)
-  if (mode === 'send') return new THREE.OctahedronGeometry(1.05, 2)
-  return new THREE.SphereGeometry(0.92, 42, 28)
+  if (mode === 'swap') return new THREE.TorusKnotGeometry(0.78, 0.22, 64, 8, 2, 3)
+  if (mode === 'deploy') return new THREE.IcosahedronGeometry(0.98, 1)
+  if (mode === 'send') return new THREE.OctahedronGeometry(1.05, 1)
+  return new THREE.SphereGeometry(0.92, 24, 16)
 }
 
 function makeParticleField(colors: THREE.Color[]) {
-  const count = 520
+  const count = 120
   const positions = new Float32Array(count * 3)
   const palette = new Float32Array(count * 3)
 
@@ -132,9 +132,19 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [fallback, setFallback] = useState(false)
 
+  const prefersReducedMotion = useMemo(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    []
+  )
+
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return undefined
+
+    if (prefersReducedMotion) {
+      setFallback(true)
+      return undefined
+    }
 
     const config = modeConfig[mode]
     const palette = config.colors.map((color) => new THREE.Color(color))
@@ -179,15 +189,15 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
       transparent: true,
       opacity: 0.92
     })
-    const ringA = new THREE.Mesh(new THREE.TorusGeometry(1.62, 0.018, 12, 190), ringMaterial)
-    const ringB = new THREE.Mesh(new THREE.TorusGeometry(1.28, 0.014, 12, 190), ringMaterial.clone())
+    const ringA = new THREE.Mesh(new THREE.TorusGeometry(1.62, 0.018, 8, 80), ringMaterial)
+    const ringB = new THREE.Mesh(new THREE.TorusGeometry(1.28, 0.014, 8, 80), ringMaterial.clone())
     ringA.rotation.x = Math.PI / 2.8
     ringB.rotation.y = Math.PI / 2.7
     rig.add(ringA, ringB)
 
     const orbit = new THREE.Group()
-    const nodeGeometry = new THREE.SphereGeometry(0.065, 16, 12)
-    for (let index = 0; index < 18; index += 1) {
+    const nodeGeometry = new THREE.SphereGeometry(0.065, 8, 6)
+    for (let index = 0; index < 8; index += 1) {
       const node = new THREE.Mesh(
         nodeGeometry,
         new THREE.MeshStandardMaterial({
@@ -196,7 +206,7 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
           emissiveIntensity: 0.35
         })
       )
-      const angle = (index / 18) * Math.PI * 2
+      const angle = (index / 8) * Math.PI * 2
       node.position.set(Math.cos(angle) * 1.8, Math.sin(angle) * 1.8, Math.sin(angle * 2) * 0.35)
       orbit.add(node)
     }
@@ -248,7 +258,7 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
       scene.traverse(disposeObject)
       renderer.dispose()
     }
-  }, [mode, status])
+  }, [mode, status, prefersReducedMotion])
 
   return (
     <div className="reactor-canvas-wrap" data-reactor-mode={mode}>
@@ -258,7 +268,7 @@ function QuantumCanvas({ mode, status }: { mode: ReactorTab; status: ReactorStat
         data-testid="quantum-reactor-canvas"
         aria-hidden="true"
       />
-      {fallback ? <div className="reactor-fallback" aria-hidden="true" /> : null}
+      {fallback ? <div className="reactor-fallback reduced-motion-fallback" aria-hidden="true" /> : null}
       <div className="reactor-hud-line reactor-hud-a" />
       <div className="reactor-hud-line reactor-hud-b" />
     </div>

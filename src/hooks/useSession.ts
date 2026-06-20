@@ -8,6 +8,7 @@ import {
   type TransactionReceipt
 } from 'viem'
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
+import { isAddress } from 'viem'
 import { useAccount, useWalletClient } from 'wagmi'
 
 import { ARC_CHAIN_ID, arcPublicClient, arcTestnet, arcTransport } from '../lib/arc'
@@ -161,6 +162,9 @@ export function useSession() {
       if (!sessionAccount) {
         throw new Error('Session inactive. Initialize session first.')
       }
+      if (!isAddress(request.to)) {
+        throw new Error('Invalid recipient address in session transaction.')
+      }
       if (!smartAccountAddress) {
         throw new Error('Smart account missing. Initialize session first.')
       }
@@ -248,6 +252,14 @@ export function useSession() {
     },
     [sessionAccount, smartAccountAddress]
   )
+
+  // Cleanup: clear session key from memory on unmount
+  useEffect(() => {
+    return () => {
+      resetSession()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return {
     sessionKey,

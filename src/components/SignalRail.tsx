@@ -1,5 +1,5 @@
 import { Activity, Gauge, RadioTower, ShieldCheck, Zap } from 'lucide-react'
-import type { CSSProperties } from 'react'
+import { useMemo, type CSSProperties } from 'react'
 
 import { useAppStore } from '../store/useAppStore'
 import { Panel } from './ui/Panel'
@@ -12,6 +12,12 @@ const lanes = [
 ] as const
 
 export function SignalRail() {
+  const prefersReducedMotion = useMemo(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    []
+  )
+  const motionStyle = prefersReducedMotion ? { animation: 'none' } : undefined
+
   const txHistory = useAppStore((state) => state.txHistory)
   const deployedTokens = useAppStore((state) => state.deployedTokens)
   const latest = txHistory[0]
@@ -52,7 +58,7 @@ export function SignalRail() {
           ))}
         </div>
 
-        <div className="signal-ring" aria-hidden="true">
+        <div className="signal-ring" aria-hidden="true" style={motionStyle}>
           <span />
           <i />
           <b />
@@ -65,8 +71,8 @@ export function SignalRail() {
               <div
                 key={label}
                 className={`signal-lane ${live ? 'signal-lane-live' : ''}`}
-                style={{ '--lane-delay': `${index * 120}ms` } as CSSProperties}
-              >
+                style={prefersReducedMotion ? { animation: 'none' } : ({ '--lane-delay': `${index * 120}ms` } as CSSProperties)}
+                >
                 <span className={`${tone} h-8 w-8 border-4 border-white`} />
                 <div className="min-w-0 flex-1">
                   <div className="font-display text-2xl leading-none">{label}</div>
@@ -88,7 +94,7 @@ export function SignalRail() {
           </div>
         </div>
 
-        <div className="signal-meter border-4 border-white bg-quantum-panel p-2 shadow-[5px_5px_0_#19e3c2]">
+        <div className="signal-meter border-4 border-white bg-quantum-panel p-2 shadow-[5px_5px_0_#19e3c2]" style={motionStyle}>
           <Gauge className="h-4 w-4 text-quantum-purple" />
           <span />
           <span />

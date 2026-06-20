@@ -54,10 +54,10 @@ function sessionStorageKey(owner: Address) {
   return `${sessionKeyPrefix}${owner.toLowerCase()}`
 }
 
-async function cryptoKey(owner: Address, salt: Uint8Array) {
+async function cryptoKey(owner: Address, salt: Uint8Array, entropy?: string) {
   const keyMaterial = await crypto.subtle.importKey(
     'raw',
-    textEncoder.encode(`ArcQuantumLab:${owner.toLowerCase()}`),
+    textEncoder.encode(`ArcQuantumLab:${owner.toLowerCase()}:${entropy ?? ''}`),
     'HKDF',
     false,
     ['deriveKey']
@@ -76,10 +76,10 @@ async function cryptoKey(owner: Address, salt: Uint8Array) {
   )
 }
 
-export async function encryptSessionKey(privateKey: Hex, owner: Address) {
+export async function encryptSessionKey(privateKey: Hex, owner: Address, entropy?: string) {
   const iv = crypto.getRandomValues(new Uint8Array(12))
   const salt = crypto.getRandomValues(new Uint8Array(16))
-  const key = await cryptoKey(owner, salt)
+  const key = await cryptoKey(owner, salt, entropy)
   const encrypted = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv },
     key,
@@ -93,13 +93,13 @@ export async function encryptSessionKey(privateKey: Hex, owner: Address) {
   return JSON.stringify(payload)
 }
 
-export async function decryptSessionKey(payload: string, owner: Address) {
+export async function decryptSessionKey(payload: string, owner: Address, entropy?: string) {
   const parsed = JSON.parse(payload) as CipherPayload
   if (!parsed.salt) {
     clearStoredSession(owner)
     throw new Error('Session expired, please re-initialize')
   }
-  const key = await cryptoKey(owner, base64ToBytes(parsed.salt))
+  const key = await cryptoKey(owner, base64ToBytes(parsed.salt), entropy)
   const decrypted = await crypto.subtle.decrypt(
     { name: 'AES-GCM', iv: base64ToBytes(parsed.iv) },
     key,

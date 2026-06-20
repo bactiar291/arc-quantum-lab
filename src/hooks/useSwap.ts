@@ -1,9 +1,9 @@
 import { encodeFunctionData, parseUnits, type Address } from 'viem'
+import { isAddress } from 'viem'
 
 import { arcPublicClient } from '../lib/arc'
 import {
   erc20Abi,
-  maxUint256,
   quantumRouterAbi
 } from '../lib/contracts'
 import { useAmmConfig } from './useAmm'
@@ -24,12 +24,13 @@ export function useSwap() {
   const { routerAddress } = useAmmConfig()
   const track = useTrackedTx()
 
-  const approveRouter = async (token: Address) => {
+  const approveRouter = async (token: Address, amount?: bigint) => {
     if (!routerAddress) throw new Error('Router address missing. Run Setup AMM first.')
+    if (!isAddress(token)) throw new Error('Invalid token address for approval.')
     const data = encodeFunctionData({
       abi: erc20Abi,
       functionName: 'approve',
-      args: [routerAddress, maxUint256]
+      args: [routerAddress, amount ?? 0n]
     })
     return track('approve', 'Approve router for token spend', async () => {
       const { hash } = await sendSessionTransaction({ to: token, data })
@@ -40,8 +41,14 @@ export function useSwap() {
   const executeSwap = async (params: SwapParams) => {
     if (!routerAddress) throw new Error('Router address missing. Run Setup AMM first.')
     if (!smartAccountAddress) throw new Error('Smart account missing.')
+    if (!isAddress(params.tokenIn)) throw new Error('Invalid tokenIn address.')
+    if (!isAddress(params.tokenOut)) throw new Error('Invalid tokenOut address.')
+    if (params.slippageBps < 0 || params.slippageBps > 5000) {
+      throw new Error('Slippage must be between 0 and 5000 bps (50%).')
+    }
     const router = routerAddress
     const recipient = params.recipient ?? smartAccountAddress
+    if (!isAddress(recipient)) throw new Error('Invalid recipient address.')
 
     const amountIn = parseUnits(params.amount || '0', params.decimals)
     if (amountIn <= 0n) throw new Error('Amount must be greater than zero.')

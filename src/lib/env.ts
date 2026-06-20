@@ -1,4 +1,4 @@
-export const CIRCLE_KIT_KEY = 'KIT_KEY:browser:proxy'
+export const CIRCLE_KIT_KEY = import.meta.env.VITE_CIRCLE_KIT_KEY || ''
 export const PRIVY_APP_ID = import.meta.env.VITE_PRIVY_APP_ID || ''
 export const PRIVY_CLIENT_ID = import.meta.env.VITE_PRIVY_CLIENT_ID || ''
 export const ARC_USDC_ADDRESS = import.meta.env.VITE_ARC_USDC_ADDRESS || ''

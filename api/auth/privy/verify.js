@@ -20,7 +20,16 @@ function getPrivyClient() {
 
 export default async function handler(request, response) {
   response.setHeader('cache-control', 'no-store')
+  response.setHeader('Access-Control-Allow-Origin', '*')
+  response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  response.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
+  response.setHeader('X-Content-Type-Options', 'nosniff')
   if (applyRateLimit(request, response)) return
+
+  if (request.method === 'OPTIONS') {
+    response.status(204).end()
+    return
+  }
 
   if (!['GET', 'POST'].includes(request.method)) {
     response.setHeader('allow', 'GET, POST')
@@ -35,6 +44,10 @@ export default async function handler(request, response) {
 
   if (!token) {
     response.status(401).json({ ok: false, error: 'Missing bearer token' })
+    return
+  }
+  if (token.length > 4096) {
+    response.status(400).json({ ok: false, error: 'Token too long' })
     return
   }
 

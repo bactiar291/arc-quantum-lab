@@ -52,8 +52,15 @@ export default async function handler(request, response) {
   }
 
   const targetUrl = new URL(`${TARGET}/${path}`)
+  const ALLOWED_PARAMS = new Set([
+    'amount', 'sourceCurrency', 'destinationCurrency',
+    'source', 'destination', 'walletId', 'tokenId',
+    'destinationAddress', 'amountIn', 'amountOut'
+  ])
   for (const [key, value] of incomingUrl.searchParams.entries()) {
-    targetUrl.searchParams.append(key, value)
+    if (ALLOWED_PARAMS.has(key)) {
+      targetUrl.searchParams.append(key, value)
+    }
   }
 
   const kitKey = process.env.CIRCLE_KIT_KEY
@@ -83,6 +90,7 @@ export default async function handler(request, response) {
     response
       .status(circleResponse.status)
       .setHeader('content-type', circleResponse.headers.get('content-type') || 'application/json')
+      .setHeader('X-Content-Type-Options', 'nosniff')
       .send(text)
   } catch {
     response.status(502).json({ error: 'Circle Stablecoin proxy fetch failed' })
