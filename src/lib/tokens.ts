@@ -14,7 +14,7 @@ function addressFromEnv(value: string, fallback: Address) {
 export const USDC_TOKEN: Token = {
   address: addressFromEnv(
     ARC_USDC_ADDRESS,
-    '0x3600000000000000000000000000000000000000'
+    '0xE17c60B0C242E9Ddac7591aca8eFc3D1a0123178'
   ),
   name: 'USDC',
   symbol: 'USDC',
@@ -25,7 +25,7 @@ export const USDC_TOKEN: Token = {
 export const EURC_TOKEN: Token = {
   address: addressFromEnv(
     ARC_EURC_ADDRESS,
-    '0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a'
+    '0x7DC17487ec01cd547C553c75Fda3e0c67B481653'
   ),
   name: 'EURC',
   symbol: 'EURC',
